@@ -736,7 +736,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   features:
   - {fileID: 4963040286616351577}
-  - {fileID: -8749980634715080836}
+  - {fileID: -1557233674024107270}
   - {fileID: 4893829345954421791}
   - {fileID: -4478006660784508864}
   - {fileID: -6081641041439107477}
@@ -749,11 +749,11 @@ MonoBehaviour:
   - {fileID: 7413458854745118488}
   - {fileID: 4054846353496584751}
   - {fileID: 154189092879288027}
-  - {fileID: -4731438336562001402}
+  - {fileID: 4451366187881382638}
   - {fileID: 4890582492822650874}
   - {fileID: -7494486358618572369}
   - {fileID: 239522605376452086}
-  m_renderMode: 1
+  m_renderMode: 0
   m_autoColorSubmissionMode: 1
   m_colorSubmissionModes:
     m_List: 00000000
@@ -1063,7 +1063,7 @@ MonoBehaviour:
   - {fileID: -6368128839055358620}
   - {fileID: -7581625304019661375}
   - {fileID: -1065019599540112960}
-  m_renderMode: 1
+  m_renderMode: 0
   m_autoColorSubmissionMode: 1
   m_colorSubmissionModes:
     m_List: 00000000
