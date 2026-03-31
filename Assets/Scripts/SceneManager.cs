@@ -8,7 +8,7 @@ public class SceneManager : MonoBehaviour
     public SoundManager soundManager;
     public ComponentsManager componentManager;
 
-  
+
     [Header("Light Cone")]
     public Transform softFocusLightCone;
     public int targetScale;
@@ -23,7 +23,7 @@ public class SceneManager : MonoBehaviour
         StartCoroutine(Scene1_ComponentLearning());
     }
 
-   
+
     // =========================
     // SCENE 0 — INTRO
     // =========================
@@ -54,7 +54,7 @@ public class SceneManager : MonoBehaviour
         uiManager.ShowComponentsUI(true);
 
         componentManager.Scene1_ComponentLearning();
-       // componentManager.AllComponentsClick(true);
+        // componentManager.AllComponentsClick(true);
         //componentManager.AllComponentsHighlightEffect(true);
 
 
@@ -63,9 +63,12 @@ public class SceneManager : MonoBehaviour
 
         // Wait until all components are clicked
         yield return new WaitUntil(() => componentManager.AllComponentsLearned());
+        UIManager.Instance.UserActionOnRAndBProbesUI(false);
+        soundManager.PlayProbesConnectedVO();
+
 
         // Next step (example)
-       // uiManager.ShowInstruction("Connect the probes correctly");
+        // uiManager.ShowInstruction("Connect the probes correctly");
         //soundManager.PlayConnectProbes();
     }
 

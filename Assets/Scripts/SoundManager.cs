@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class SoundManager : MonoBehaviour
@@ -18,9 +19,6 @@ public class SoundManager : MonoBehaviour
     public AudioClip selectorDialVO;
     public AudioClip probesConnectedVO;
     public AudioClip connectRedAndBlackProbesVO;
-
-    
-
     public AudioClip acSocketVO;
 
     [Header("Sounds")]
@@ -46,34 +44,60 @@ public class SoundManager : MonoBehaviour
             audioSource = gameObject.AddComponent<AudioSource>();
     }
 
-    // 🔊 Base play method
+    // =========================
+    // 🔊 Base Play Method
+    // =========================
     void Play(AudioClip clip)
     {
-        if (clip != null)
-            audioSource.PlayOneShot(clip);
+        if (clip == null) return;
+
+        audioSource.Stop();          // Stop any current audio
+        audioSource.clip = clip;     // Assign new clip
+        audioSource.Play();          // Play
     }
 
+    // =========================
+    // 🎯 State Check (IMPORTANT)
+    // =========================
+    public bool IsPlaying()
+    {
+        return audioSource.isPlaying;
+    }
+
+    // =========================
+    // ⏳ Play + Wait (Coroutine)
+    // =========================
+    public IEnumerator PlayAndWait(AudioClip clip)
+    {
+        if (clip == null) yield break;
+
+        audioSource.Stop();
+        audioSource.clip = clip;
+        audioSource.Play();
+
+        yield return new WaitWhile(() => audioSource.isPlaying);
+    }
+
+    // =========================
     // 🎤 Voice Overs
+    // =========================
     public void PlayScene1Intro() => Play(scene1Intro);
     public void PlayClickBegin() => Play(beginButtonClick);
     public void PlayClickEachComponent() => Play(eachComponentClick);
     public void PlayDigitalMultimeter() => Play(digitalMultimeter);
     public void PlayBlackProbe() => Play(blackProbeVO);
     public void PlayRedProbe() => Play(redProbeVO);
-        public void PlayContinuitySymbol() => Play(continuitySymbolVO);
-
-    public void PlayConnectRedAndBlackProbes() => Play(connectRedAndBlackProbesVO);
-
+    public void PlayContinuitySymbol() => Play(continuitySymbolVO);
     public void PlaySelectorDial() => Play(selectorDialVO);
     public void PlayProbesConnected() => Play(probesConnectedVO);
     public void PlayBatteryVO() => Play(batteryVO);
     public void PlayACSocketVO() => Play(acSocketVO);
+    public void PlayConnectRedAndBlackProbes() => Play(connectRedAndBlackProbesVO);
+        public void PlayProbesConnectedVO() => Play(probesConnectedVO);
 
 
-
+    // =========================
     // 🖱 UI Sounds
+    // =========================
     public void PlayBeep() => Play(beep);
-
-
-
 }
