@@ -16,6 +16,11 @@ public class InteractionManager : MonoBehaviour
     // FLAGS
     // =========================
     public bool isContinuityMode = false;
+
+    public bool isDcOn20V = false;
+    public bool isACOn200V = false;
+
+
     public bool isDCMode = false;
 
     void Awake()
@@ -29,28 +34,28 @@ public class InteractionManager : MonoBehaviour
     public void UpdateDialValue(float value)
     {
 
-       // SoundManager.Instance.PlaySlideSwitch();
+        // Reset all states first (important)
+        isContinuityMode = false;
+        isACOn200V = false;
+        isDcOn20V = false;
+
         // 🔹 Continuity Mode
         if (value >= 0.735f && value <= 0.775f)
         {
             isContinuityMode = true;
         }
-        else
+        // 🔹 DC 20V
+        else if (value >= 0.61f && value <= 0.64f)
         {
-            isContinuityMode = false;
+            isDcOn20V = true;
+        }
+        // 🔹 AC 200V
+        else if (value >= 0.56f && value <= 0.6f)
+        {
+            isACOn200V = true;
         }
 
-        // 🔹 DC Mode (example range — adjust as per your dial)
-        // if (value >= 0.50f && value <= 0.65f)
-        // {
-        //     isDCMode = true;
-        // }
-        // else
-        // {
-        //     isDCMode = false;
-        // }
-
-        Debug.Log($"Dial Value: {value} | Continuity: {isContinuityMode} | DC Mode: {isDCMode}");
+       // Debug.Log($"Dial Value: {value} | Continuity: {isContinuityMode} | DC20V: {isDcOn20V} | AC200V: {isACOn200V}");
     }
 
     // =========================
@@ -59,12 +64,7 @@ public class InteractionManager : MonoBehaviour
     public void UpdateProbe(Probe probe, Collider other)
     {
         // ❌ Block everything if not in continuity mode
-        if (!isContinuityMode)
-        {
-            Show("0");
-            return;
-        }
-
+       
         // 🔹 Update touch state
         if (probe.probeType == Probe.ProbeType.Red)
             redTouch = probe.currentTouch;
@@ -139,6 +139,10 @@ public class InteractionManager : MonoBehaviour
 
         {
             Show("220V");
+        }
+         else
+        {
+            Show("0");
         }
 
     }

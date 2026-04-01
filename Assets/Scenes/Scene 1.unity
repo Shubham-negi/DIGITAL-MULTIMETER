@@ -910,7 +910,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Turn the dial to DC voltage (V\u2393)."
+  m_text: "Switch to DC voltage (V\u2393)."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f675742eaf9c20a4f909d78ee7a14fed, type: 2}
   m_sharedMaterial: {fileID: 4687939059374929122, guid: f675742eaf9c20a4f909d78ee7a14fed, type: 2}
@@ -3648,7 +3648,7 @@ Transform:
   m_GameObject: {fileID: 234848842}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.91374, y: 0.79298, z: -0.024957}
+  m_LocalPosition: {x: -0.91374, y: 0.79298, z: -0.0239}
   m_LocalScale: {x: 0.005, y: 0.00094867, z: 0.009440863}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -4252,6 +4252,8 @@ MonoBehaviour:
   blackTouch: 
   voltageDisplay: {fileID: 934546404}
   isContinuityMode: 0
+  isDcOn20V: 0
+  isACOn200V: 0
   isDCMode: 0
 --- !u!4 &265326270
 Transform:
@@ -6874,7 +6876,7 @@ MonoBehaviour:
   probeTouchBeepVO: {fileID: 8300000, guid: 0afcf4fba7390f4449b4d89a845029aa, type: 3}
   multimeterWorkingVO: {fileID: 8300000, guid: c841ae37c599f0e4b89162d0724d8be6, type: 3}
   scene3IntroVO: {fileID: 8300000, guid: 722934f32bbb684448353cda7f3fda24, type: 3}
-  turnTheDialToDCVO: {fileID: 8300000, guid: 1de1fe57ec54186448b0b67d6c4adc81, type: 3}
+  turnTheDialToDCVO: {fileID: 8300000, guid: 55e7d05e4d0fdbd499c0336e7a9e1af0, type: 3}
   dCFlowsInOneDirectionVO: {fileID: 8300000, guid: afd5fe8ed763f7e49ae5b417bd775666, type: 3}
   placeTheProbesOnbatteryVO: {fileID: 8300000, guid: d49c1075d99837147afbfb69d26e8e4a, type: 3}
   redAndBlackIsConnectedVO: {fileID: 8300000, guid: 3a84562fcd6565647b1c778cc5617f06, type: 3}
@@ -6884,7 +6886,7 @@ MonoBehaviour:
   scene4IntroVO: {fileID: 8300000, guid: 3c3fb6333be5f5748bb5d3adbf319661, type: 3}
   moveNearToWallSocketVO: {fileID: 8300000, guid: bb8c6908f076a104792979c07981f9bf, type: 3}
   safteyTipsVO: {fileID: 8300000, guid: 2a73f8b9e8fd2224089b1cb7f2fd0573, type: 3}
-  turnDialToAC: {fileID: 8300000, guid: 5b2b4dffcdcaff847ad8ba7128316961, type: 3}
+  turnDialToAC: {fileID: 8300000, guid: 68055eacba7ff714ba53247b7d3da191, type: 3}
   acVoltageChnagesDirectionVO: {fileID: 8300000, guid: 7273973cfded49d49927d89d52bea563, type: 3}
   placeProbesOnACSocketVO: {fileID: 8300000, guid: 4548b067ca7b2a84c943a65864e1f082, type: 3}
   acVoltageReadingFluctuatesVO: {fileID: 8300000, guid: 5390f768d9ef0fa4484433f512709331, type: 3}
@@ -8346,7 +8348,7 @@ GameObject:
   - component: {fileID: 569171425}
   - component: {fileID: 569171426}
   m_Layer: 5
-  m_Name: "Turn the dial to DC voltage (V\u2393)."
+  m_Name: "Switch to DC voltage (V\u2393)."
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9679,7 +9681,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -61.2, y: -258.3}
+  m_AnchoredPosition: {x: -44, y: -258.3}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!120 &693838177
@@ -12017,7 +12019,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 2089479960}
+    m_TransformParent: {fileID: 1278710419}
     m_Modifications:
     - target: {fileID: -8912533784211386830, guid: 5aecc723cdfbc704f8558227ca332d77, type: 3}
       propertyPath: m_Name
@@ -12037,7 +12039,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5aecc723cdfbc704f8558227ca332d77, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.1221
+      value: -0.249
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5aecc723cdfbc704f8558227ca332d77, type: 3}
       propertyPath: m_LocalPosition.y
@@ -12053,7 +12055,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5aecc723cdfbc704f8558227ca332d77, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5aecc723cdfbc704f8558227ca332d77, type: 3}
       propertyPath: m_LocalRotation.y
@@ -12061,7 +12063,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5aecc723cdfbc704f8558227ca332d77, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5aecc723cdfbc704f8558227ca332d77, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -13342,7 +13344,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 878495417}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0.97659725, z: 0, w: -0.21507621}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: -0.00000004371139}
   m_LocalPosition: {x: -0.91365, y: 0.79535, z: -0.00001}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -13423,7 +13425,7 @@ MonoBehaviour:
   m_StartingSelectFilters: []
   m_StartingInteractionStrengthFilters: []
   m_Handle: {fileID: 878495418}
-  m_Value: 0.569
+  m_Value: 0.5
   m_ClampedMotion: 1
   m_MaxAngle: 360
   m_MinAngle: 0
@@ -14247,7 +14249,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Turn Dial To AC
+  m_text: "Switch to AC voltage (V\u2393)."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f675742eaf9c20a4f909d78ee7a14fed, type: 2}
   m_sharedMaterial: {fileID: 4687939059374929122, guid: f675742eaf9c20a4f909d78ee7a14fed, type: 2}
@@ -18329,6 +18331,44 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3222391660731057103, guid: 3d032f5481d2826478451895128a76f4, type: 3}
   m_PrefabInstance: {fileID: 2046375308103600155}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1278710418
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1278710419}
+  m_Layer: 0
+  m_Name: Props
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1278710419
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1278710418}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.107, y: 0.136, z: 0.206}
+  m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
+  m_ConstrainProportionsScale: 1
+  m_Children:
+  - {fileID: 3486798938530447656}
+  - {fileID: 826369206}
+  - {fileID: 3262878123534156795}
+  - {fileID: 3009859401536673310}
+  - {fileID: 2509833036386972981}
+  - {fileID: 5677716303624963536}
+  - {fileID: 1079965846347330695}
+  m_Father: {fileID: 2089479960}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1290771285
 GameObject:
   m_ObjectHideFlags: 0
@@ -20399,7 +20439,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1484555743}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -2.1}
+  m_LocalPosition: {x: 0, y: 0, z: 11.2}
   m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -26436,7 +26476,7 @@ GameObject:
   - component: {fileID: 1991244185}
   - component: {fileID: 1991244186}
   m_Layer: 5
-  m_Name: TurnDialToAC
+  m_Name: "Switch to AC voltage (V\u2393)."
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27256,14 +27296,8 @@ Transform:
   - {fileID: 855785750}
   - {fileID: 5758831994552195087}
   - {fileID: 4236459012474725874}
-  - {fileID: 3486798938530447656}
   - {fileID: 8425451828676075467}
-  - {fileID: 826369206}
-  - {fileID: 1079965846347330695}
-  - {fileID: 5677716303624963536}
-  - {fileID: 2509833036386972981}
-  - {fileID: 3009859401536673310}
-  - {fileID: 3262878123534156795}
+  - {fileID: 1278710419}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2091727433
@@ -30188,7 +30222,7 @@ Transform:
   m_Children:
   - {fileID: 1218051537}
   - {fileID: 973505489}
-  m_Father: {fileID: 2089479960}
+  m_Father: {fileID: 1278710419}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &1099553349651898739
 MeshFilter:
@@ -34660,7 +34694,7 @@ Transform:
   - {fileID: 1198744612}
   - {fileID: 7178910769972043230}
   - {fileID: 8310291075552768039}
-  m_Father: {fileID: 2089479960}
+  m_Father: {fileID: 1278710419}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &2511811755067879349
 MeshRenderer:
@@ -35390,7 +35424,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 140619306174022376}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0.6446575, z: 0, w: 0.7644716}
+  m_LocalRotation: {x: -0, y: 0.6446575, z: -0, w: 0.7644716}
   m_LocalPosition: {x: -0.031, y: 0.4844723, z: -0.552}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
@@ -35398,7 +35432,7 @@ Transform:
   - {fileID: 3734536950695395941}
   - {fileID: 8966982376074925666}
   - {fileID: 396563412322543495}
-  m_Father: {fileID: 2089479960}
+  m_Father: {fileID: 1278710419}
   m_LocalEulerAnglesHint: {x: 0, y: 80.28, z: 0}
 --- !u!114 &3009859401536673311
 MonoBehaviour:
@@ -36167,7 +36201,7 @@ Transform:
   - {fileID: 8269188152363628990}
   - {fileID: 705241953638392640}
   - {fileID: 3366173328417712971}
-  m_Father: {fileID: 2089479960}
+  m_Father: {fileID: 1278710419}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3286912836272665198
 GameObject:
@@ -37080,7 +37114,7 @@ Transform:
   m_LocalScale: {x: 200, y: 200, z: 200}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2089479960}
+  m_Father: {fileID: 1278710419}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &3530506686558546680
 Transform:
@@ -43353,7 +43387,7 @@ Transform:
   m_GameObject: {fileID: 948520731255112818}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.66, y: -1.0904658, z: -0}
+  m_LocalPosition: {x: 1.66, y: -1.0904658, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -43367,7 +43401,7 @@ Transform:
   - {fileID: 7890945772799172941}
   - {fileID: 878495418}
   - {fileID: 234848843}
-  m_Father: {fileID: 2089479960}
+  m_Father: {fileID: 1278710419}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5677716303624963537
 MonoBehaviour:
@@ -44697,7 +44731,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 0
   serializedVersion: 3
-  m_Size: {x: 0.005590286, y: 0.005951767, z: 0.005590521}
+  m_Size: {x: 0.01, y: 0.01, z: 0.01}
   m_Center: {x: 0.000000004307367, y: 0.000000005355105, z: -5.820766e-10}
 --- !u!114 &6295635125963214135
 MonoBehaviour:
@@ -50229,8 +50263,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 0
   serializedVersion: 3
-  m_Size: {x: 0.005590439, y: 0.005951767, z: 0.0055904407}
-  m_Center: {x: -0.000000031432137, y: 0.0000000026775524, z: -1.1641532e-10}
+  m_Size: {x: 0.01, y: 0.01, z: 0.01}
+  m_Center: {x: 0.0003194809, y: 0.0011985451, z: 0.00055784173}
 --- !u!114 &7893899263981777448
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -50250,30 +50284,30 @@ MonoBehaviour:
   effectGroupLayer:
     serializedVersion: 2
     m_Bits: 4294967295
-  alphaCutOff: 0
+  alphaCutOff: 1
   cullBackFaces: 1
   ignoreObjectVisibility: 0
   reflectionProbes: 0
   ignore: 0
   _highlighted: 1
-  fadeInDuration: 0
-  fadeOutDuration: 0
+  fadeInDuration: 2.47
+  fadeOutDuration: 4.76
   flipY: 0
   constantWidth: 1
   overlay: 1
   overlayColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   overlayAnimationSpeed: 1
-  overlayMinIntensity: 0
+  overlayMinIntensity: 1
   overlayBlending: 1
   outline: 1
   outlineColor: {r: 0, g: 0, b: 0, a: 1}
   outlineWidth: 0.45
   outlineQuality: 2
-  outlineDownsampling: 2
+  outlineDownsampling: 8
   outlineAlwaysOnTop: 0
   outlineOptimalBlit: 1
   outlineBlitDebug: 0
-  glow: 1
+  glow: 0.69
   glowWidth: 0.4
   glowQuality: 2
   glowDownsampling: 2
@@ -50281,7 +50315,7 @@ MonoBehaviour:
   glowDithering: 1
   glowMagicNumber1: 0.75
   glowMagicNumber2: 0.5
-  glowAnimationSpeed: 1
+  glowAnimationSpeed: 1.94
   glowAlwaysOnTop: 0
   glowOptimalBlit: 1
   glowBlitDebug: 0
@@ -50299,9 +50333,9 @@ MonoBehaviour:
     alpha: 0.4
     color: {r: 0.64, g: 1, b: 0, a: 1}
   innerGlow: 5
-  innerGlowWidth: 1
+  innerGlowWidth: 2
   innerGlowColor: {r: 0.6392157, g: 1, b: 0, a: 1}
-  innerGlowAlwaysOnTop: 0
+  innerGlowAlwaysOnTop: 1
   targetFX: 0
   targetFXTexture: {fileID: 0}
   targetFXColor: {r: 1, g: 1, b: 1, a: 1}
