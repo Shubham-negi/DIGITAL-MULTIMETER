@@ -5,44 +5,95 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UIElements;
+using UnityEngine.XR.Interaction.Toolkit.Interactables;
 using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
 public class ComponentsManager : MonoBehaviour
 {
+    [Header("Black Probe")]
     public GameObject battery;
+    public GameObject batteryPositive;
+    public GameObject batteryNegative;
+
+
+    [Header("Black Probe")]
     public GameObject blackProbe;
+    public GameObject blackProbeConnector;
+    public GameObject blackProbeHolder;
+    [Header("Red Probe")]
     public GameObject redProbe;
-      public GameObject blackProbeConnector;
     public GameObject redProbeConnector;
+    public GameObject redProbeHolder;
+
     public GameObject multimeter;
     public GameObject acSocket;
-
     public GameObject comPort;
     public GameObject VΩPort;
-    
-
     public GameObject selectorDial;
     public GameObject continuitySymbol;
-
+    public Transform acDCSwitch;
     private int actionCount = 0;
 
+
+
+
+
+
+
+    public void ToggleACSocketChildren(bool state)
+    {
+        if (acSocket == null)
+            return;
+
+        Transform socketTransform = acSocket.transform;
+
+        if (socketTransform.childCount == 0)
+            return;
+
+        Transform firstChild = socketTransform.GetChild(0);
+
+        foreach (Transform child in firstChild)
+        {
+            child.gameObject.SetActive(state);
+        }
+    }
+
+
+
+    // Optional: toggle without passing bool (better for poke)
+    public void ToggleACDCSwitch()
+    {
+        InteractionManager.Instance.isDCMode = !InteractionManager.Instance.isDCMode;
+
+        Vector3 localPos = acDCSwitch.localPosition;
+        localPos.z = !InteractionManager.Instance.isDCMode ? -0.01804f : -0.02151f;
+
+        acDCSwitch.localPosition = localPos;
+
+        print("acdc switch local pos is - " + acDCSwitch.localPosition);
+    }
     // =========================
     // 🔧 Helpers
     // =========================
 
-    void EnableInteraction(GameObject obj)
+    public void EnableInteraction(GameObject obj)
     {
         obj.GetComponent<HighlightEffect>().enabled = true;
         obj.GetComponent<BoxCollider>().enabled = true;
     }
 
-    void DisableInteraction(GameObject obj)
+    public void DisableInteraction(GameObject obj)
     {
         obj.GetComponent<HighlightEffect>().enabled = false;
         obj.GetComponent<BoxCollider>().enabled = false;
 
     }
-    
+    public void EnableXRGrabbable(GameObject obj, bool isGrabbable)
+    {
+        obj.GetComponent<XRGrabInteractable>().enabled = isGrabbable;
+    }
+
+
     IEnumerator WaitForAudio()
     {
         yield return new WaitUntil(() => !SoundManager.Instance.IsPlaying());
@@ -146,7 +197,9 @@ public class ComponentsManager : MonoBehaviour
         EnableInteraction(comPort);
         EnableInteraction(blackProbeConnector);
         EnableInteraction(redProbeConnector);
-         
+        EnableXRGrabbable(blackProbeConnector, true);
+        EnableXRGrabbable(redProbeConnector, true);
+
 
         var vSocket = VΩPort.GetComponent<XRSocketInteractor>();
         var cSocket = comPort.GetComponent<XRSocketInteractor>();
@@ -163,6 +216,8 @@ public class ComponentsManager : MonoBehaviour
         UIManager.Instance.ClickEachComponentTextUI(false);
         UIManager.Instance.ShowComponentsUI(false);
         UIManager.Instance.UserActionOnRAndBProbesUI(true);
+
+
     }
 
     // =========================
@@ -177,7 +232,7 @@ public class ComponentsManager : MonoBehaviour
     public bool AllComponentsLearned()
     {
 
-        
+
         return actionCount >= 2;
     }
 }

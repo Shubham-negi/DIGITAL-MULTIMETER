@@ -20,4 +20,18 @@ public class Probe : MonoBehaviour
 
         InteractionManager.Instance.UpdateProbe(this, null);
     }
+
+    // void OnCollisionEnter(Collision collision)
+    // {
+    //      currentTouch = collision.gameObject.name;
+
+    //     InteractionManager.Instance.UpdateProbe(this, collision);
+    // }
+
+    // void OnCollisionExit(Collision collision)
+    // {
+    //       currentTouch = null;
+
+    //     InteractionManager.Instance.UpdateProbe(this, null);
+    // }
 }

@@ -398,7 +398,7 @@ namespace HighlightPlus
 
 
 		void OnRenderObject ()
-		{ 	
+		{
 
 #if UNITY_EDITOR
 			if (!previewInEditor && !Application.isPlaying)
@@ -412,6 +412,8 @@ namespace HighlightPlus
 
 			// Check camera culling mask
 			Camera cam = Camera.main;
+			
+
 			int cullingMask = cam.cullingMask;
 
 			// Ensure renderers are valid and visible (in case LODgroup has changed active renderer)

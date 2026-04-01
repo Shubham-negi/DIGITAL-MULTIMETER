@@ -1,4 +1,8 @@
 using System.Collections;
+using HighlightPlus;
+using Unity.VisualScripting;
+using Unity.VRTemplate;
+using Unity.XR.CoreUtils;
 using UnityEngine;
 
 public class SceneManager : MonoBehaviour
@@ -66,10 +70,220 @@ public class SceneManager : MonoBehaviour
         UIManager.Instance.UserActionOnRAndBProbesUI(false);
         soundManager.PlayProbesConnectedVO();
 
+        yield return WaitForAudio();
 
-        // Next step (example)
-        // uiManager.ShowInstruction("Connect the probes correctly");
-        //soundManager.PlayConnectProbes();
+        // componentManager.EnableXRGrabbable(componentManager.blackProbeConnector, false);
+        // componentManager.EnableXRGrabbable(componentManager.redProbeConnector, false);
+                componentManager.DisableInteraction(componentManager.blackProbeConnector);
+                componentManager.DisableInteraction(componentManager.redProbeConnector);
+
+
+
+
+        StartCoroutine(Scene2_CheckingMultimeter());
+
+
+    }
+
+    // =========================
+    // SCENE 2 — COMPONENTS
+    // =========================
+
+    private IEnumerator Scene2_CheckingMultimeter()
+    {
+        yield return new WaitForSeconds(4f);
+
+
+        componentManager.selectorDial.GetComponentInParent<XRKnob>().enabled = true;
+        componentManager.selectorDial.GetComponentInParent<SphereCollider>().enabled = true;
+
+        soundManager.PlayTurnToContinuityVO();
+        UIManager.Instance.TurnToContinuityUI(true);
+        //  componentManager.EnableInteraction(componentManager.selectorDial);
+        yield return WaitForAudio();
+
+        yield return new WaitUntil(() => InteractionManager.Instance.isContinuityMode);
+
+        componentManager.EnableXRGrabbable(componentManager.blackProbeHolder, true);
+        componentManager.EnableXRGrabbable(componentManager.redProbeHolder, true);
+
+
+        soundManager.PlayTouchBothProbesVO();
+        UIManager.Instance.TurnToContinuityUI(false);
+        UIManager.Instance.TouchProbesTogetherUI(true);
+        yield return WaitForAudio();
+
+
+
+
+        yield return new WaitUntil(() => InteractionManager.Instance.AreProbesTouching());
+
+
+        soundManager.PlayProbeTouchBeepVO();
+        yield return WaitForAudio();
+
+        soundManager.PlayMultimeterWorkingVO();
+        UIManager.Instance.TouchProbesTogetherUI(false);
+        StartCoroutine(Scene3_MeasuringDCVoltage());
+
+
+
+
+
+
+
+
+    }
+    // =========================
+    // SCENE 3 — Scene3_MeasuringDCVoltage
+    // =========================
+
+    private IEnumerator Scene3_MeasuringDCVoltage()
+    {
+        yield return new WaitForSeconds(5f);
+        componentManager.acSocket.SetActive(false);
+        componentManager.battery.SetActive(true);
+        soundManager.PlayScene3IntroVO();
+        yield return WaitForAudio();
+
+        UIManager.Instance.TurnTheDialToDCUI(true);
+        componentManager.EnableInteraction(componentManager.acDCSwitch.gameObject);
+        soundManager.PlayTurnTheDialToDCVO();
+
+        yield return WaitForAudio();
+        yield return new WaitUntil(() => InteractionManager.Instance.isDCMode);
+
+
+        UIManager.Instance.TurnTheDialToDCUI(false);
+        soundManager.PlayConnectRedAndBlackProbes();
+
+        UIManager.Instance.ConnectRedAndBlackProbesUI(true);
+
+        yield return WaitForAudio();
+
+        componentManager.EnableXRGrabbable(componentManager.redProbeHolder, true);
+        componentManager.EnableXRGrabbable(componentManager.blackProbeHolder, true);
+
+        // componentManager.EnableInteraction(componentManager.batteryPositive);
+        // componentManager.EnableInteraction(componentManager.batteryNegative);
+
+        componentManager.batteryNegative.GetComponent<HighlightEffect>().enabled = true;
+        componentManager.batteryPositive.GetComponent<HighlightEffect>().enabled = true;
+
+
+
+        yield return new WaitUntil(() => InteractionManager.Instance.redTouch == "BatteryPlus" && InteractionManager.Instance.blackTouch == "BatteryMinus");
+
+        UIManager.Instance.ConnectRedAndBlackProbesUI(false);
+        UIManager.Instance.ObserveTheVoltageReadingUI(true);
+
+        soundManager.PlayObserveTheVoltageReadingVO();
+
+        yield return WaitForAudio();
+
+        soundManager.PlayVoltageIs9InBatteryVO();
+
+        yield return WaitForAudio();
+
+        componentManager.batteryNegative.GetComponent<HighlightEffect>().innerGlowColor = Color.red;
+        componentManager.batteryNegative.GetComponent<HighlightEffect>().overlayColor = Color.red;
+
+        componentManager.batteryPositive.GetComponent<HighlightEffect>().innerGlowColor = Color.black;
+        componentManager.batteryPositive.GetComponent<HighlightEffect>().overlayColor = Color.black;
+        yield return new WaitUntil(() => InteractionManager.Instance.redTouch == "BatteryMinus" && InteractionManager.Instance.blackTouch == "BatteryPlus");
+
+
+        soundManager.PlayVoltageIsReversedInBatteryVO();
+        UIManager.Instance.ObserveTheVoltageReadingUI(false);
+
+        UIManager.Instance.VoltageIsReversedInBatteryUI(true);
+
+
+        yield return WaitForAudio();
+
+        UIManager.Instance.VoltageIsReversedInBatteryUI(false);
+
+        StartCoroutine(Scene4_MeasuringACVoltage());
+    }
+
+
+    // =========================
+    // SCENE 4  f— Scene4_MeasuringACVoltage
+    // =========================
+
+    private IEnumerator Scene4_MeasuringACVoltage()
+    {
+        yield return new WaitForSeconds(5f);
+        componentManager.acSocket.SetActive(true);
+        componentManager.battery.SetActive(false);
+        soundManager.PlayScene4IntroVO();
+        yield return WaitForAudio();
+        soundManager.PlayMoveNearToWallSocketVO();
+        yield return WaitForAudio();
+
+
+        uiManager.SafetyTipsUI(true);
+        soundManager.PlaySafteyTipsVO();
+        yield return WaitForAudio();
+        uiManager.SafetyTipsUI(false);
+
+
+
+        uiManager.TurnDialToACUI(true);
+        soundManager.PlayTurnDialToAC();
+        yield return WaitForAudio();
+
+        componentManager.EnableInteraction(componentManager.acDCSwitch.gameObject);
+        yield return new WaitUntil(() => !InteractionManager.Instance.isDCMode);
+        uiManager.TurnDialToACUI(false);
+        soundManager.PlayACVoltageChangesDirectionVO();
+        yield return WaitForAudio();
+
+        uiManager.InsertProbesInACSocketUI(true);
+        componentManager.ToggleACSocketChildren(true);
+        soundManager.PlayPlaceProbesOnACSocketVO();
+        yield return WaitForAudio();
+
+        yield return new WaitUntil(() =>InteractionManager.Instance.redTouch == "SwitchMinus" && InteractionManager.Instance.blackTouch == "SwitchPlus");
+        uiManager.InsertProbesInACSocketUI(false);
+        soundManager.PlayObserveTheVoltageReadingVO();
+        yield return WaitForAudio();
+        uiManager.ObserveACVoltageFluctuationsUI(true);
+
+        soundManager.PlayACVoltageForHomeVO();
+        yield return WaitForAudio();
+        uiManager.ObserveACVoltageFluctuationsUI(false);
+        uiManager.ReverseProbesInACSocketUI(true);
+
+        soundManager.PlayReverseTheProbeOnACVO();
+        yield return WaitForAudio();
+
+        yield return new WaitUntil(() =>InteractionManager.Instance.redTouch == "SwitchPlus" && InteractionManager.Instance.blackTouch == "SwitchMinus");
+        uiManager.ReverseProbesInACSocketUI(false);
+        soundManager.PlayACVoltageNatureVO();
+        yield return WaitForAudio();
+
+        componentManager.ToggleACSocketChildren(true);
+
+
+        StartCoroutine(Scene5_Conclusison());
+    }
+
+
+    // =========================
+    // SCENE 5   Scene5_Conclusion
+    // =========================
+
+    private IEnumerator Scene5_Conclusison()
+
+    {
+        yield return new WaitForSeconds(5f);
+        soundManager.PlayScene5IntroVO();
+        yield return WaitForAudio();
+
+        uiManager.ConclusionUIActive(true);
+        soundManager.PlayConclusionVO();
+        yield return WaitForAudio();
     }
 
     // =========================
@@ -96,4 +310,10 @@ public class SceneManager : MonoBehaviour
 
         softFocusLightCone.localScale = Vector3.one * targetScale;
     }
+
+    IEnumerator WaitForAudio()
+    {
+        yield return new WaitUntil(() => !SoundManager.Instance.IsPlaying());
+    }
+
 }
