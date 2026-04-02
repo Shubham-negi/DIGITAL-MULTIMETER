@@ -95,7 +95,7 @@ public class GameManager : MonoBehaviour
 
 
         componentManager.selectorDial.GetComponentInParent<XRKnob>().enabled = true;
-        componentManager.selectorDial.GetComponentInParent<SphereCollider>().enabled = true;
+        componentManager.selectorDial.GetComponentInParent<BoxCollider>().enabled = true;
 
         soundManager.PlayTurnToContinuityVO();
         UIManager.Instance.TurnToContinuityUI(true);

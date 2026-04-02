@@ -132,7 +132,7 @@ public class InteractionManager : MonoBehaviour
             Show("220V");
 
         }
-        if (redTouch == "SwitchMinus" && blackTouch == "SwitchPlus")
+       else if (redTouch == "SwitchMinus" && blackTouch == "SwitchPlus")
 
         {
             Show("220V");
