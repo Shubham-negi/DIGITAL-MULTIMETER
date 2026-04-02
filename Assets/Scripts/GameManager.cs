@@ -1,11 +1,13 @@
 using System.Collections;
 using HighlightPlus;
+using TMPro;
 using Unity.VisualScripting;
 using Unity.VRTemplate;
 using Unity.XR.CoreUtils;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class SceneManager : MonoBehaviour
+public class GameManager : MonoBehaviour
 {
     [Header("Managers")]
     public UIManager uiManager;
@@ -59,12 +61,19 @@ public class SceneManager : MonoBehaviour
         componentManager.Scene1_ComponentLearning();
 
         yield return new WaitUntil(() => componentManager.AllComponentsLearned());
+
+        UIManager.Instance.randBProbeHintButtonUI.SetActive(false);
+        UIManager.Instance.comPortIndicatorUI.SetActive(false);
+        UIManager.Instance.VΩPortIndicatorUI.SetActive(false);
+
+
         UIManager.Instance.UserActionOnRAndBProbesUI(false);
         soundManager.PlayProbesConnectedVO();
 
         yield return WaitForAudio();
 
-
+        componentManager.DisableInteraction(componentManager.VΩPort);
+        componentManager.DisableInteraction(componentManager.comPort);
         componentManager.DisableInteraction(componentManager.blackProbeConnector);
         componentManager.DisableInteraction(componentManager.redProbeConnector);
 
@@ -109,7 +118,8 @@ public class SceneManager : MonoBehaviour
 
 
         yield return new WaitUntil(() => InteractionManager.Instance.AreProbesTouching());
-
+        SoundManager.Instance.PlayBeep();
+        yield return WaitForAudio();
         yield return new WaitForSeconds(2f);
         soundManager.PlayProbeTouchBeepVO();
         yield return WaitForAudio();
@@ -133,19 +143,25 @@ public class SceneManager : MonoBehaviour
         UIManager.Instance.TurnTheDialToDCUI(true);
         componentManager.EnableInteraction(componentManager.acDCSwitch.gameObject);
         soundManager.PlayTurnTheDialToDCVO();
+        soundManager.PlaySwitchTOAC();
 
         yield return WaitForAudio();
+        UIManager.Instance.acDCSwitchIndicatorUI.SetActive(true);
 
         yield return new WaitUntil(() => InteractionManager.Instance.isDCMode);
-
-        // SoundManager.Instance.PlayRotateDialTo20VO();
-        // UIManager.Instance.RotateDialTo20UI(true);
+        UIManager.Instance.TurnTheDialToDCUI(false);
+        yield return new WaitForSeconds(2f);
+        UIManager.Instance.acDCSwitchIndicatorUI.SetActive(false);
+        soundManager.PlayTurnTheDialTo20();
+        yield return WaitForAudio();
+        UIManager.Instance.RotateDialTo20UI(true);
 
         yield return new WaitUntil(() => InteractionManager.Instance.isDCMode && InteractionManager.Instance.isDcOn20V);
+        UIManager.Instance.RotateDialTo20UI(false);
 
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
 
-        UIManager.Instance.TurnTheDialToDCUI(false);
+
         soundManager.PlayConnectRedAndBlackProbes();
 
         UIManager.Instance.ConnectRedAndBlackProbesUI(true);
@@ -164,6 +180,11 @@ public class SceneManager : MonoBehaviour
 
 
         yield return new WaitUntil(() => InteractionManager.Instance.redTouch == "BatteryPlus" && InteractionManager.Instance.blackTouch == "BatteryMinus");
+
+        SoundManager.Instance.PlayRedAndBlackIsConnectedVO();
+        yield return WaitForAudio();
+
+
         yield return new WaitForSeconds(2f);
 
         UIManager.Instance.ConnectRedAndBlackProbesUI(false);
@@ -182,17 +203,21 @@ public class SceneManager : MonoBehaviour
 
         componentManager.batteryPositive.GetComponent<HighlightEffect>().innerGlowColor = Color.black;
         componentManager.batteryPositive.GetComponent<HighlightEffect>().overlayColor = Color.black;
+
+        soundManager.PlayReverseTheProbeOnACVO();
+        yield return WaitForAudio();
         yield return new WaitUntil(() => InteractionManager.Instance.redTouch == "BatteryMinus" && InteractionManager.Instance.blackTouch == "BatteryPlus");
+        UIManager.Instance.ObserveTheVoltageReadingUI(false);
+      
 
         yield return new WaitForSeconds(2f);
 
         soundManager.PlayVoltageIsReversedInBatteryVO();
-        UIManager.Instance.ObserveTheVoltageReadingUI(false);
+        yield return WaitForAudio();
 
         UIManager.Instance.VoltageIsReversedInBatteryUI(true);
 
 
-        yield return WaitForAudio();
 
         UIManager.Instance.VoltageIsReversedInBatteryUI(false);
 
@@ -223,20 +248,29 @@ public class SceneManager : MonoBehaviour
 
 
         uiManager.TurnDialToACUI(true);
-        soundManager.PlayTurnDialToAC();
+        soundManager.PlaySwitchTODC();
         yield return WaitForAudio();
 
         componentManager.EnableInteraction(componentManager.acDCSwitch.gameObject);
+        UIManager.Instance.acDCSwitchIndicatorUI.SetActive(true);
 
         yield return new WaitUntil(() => !InteractionManager.Instance.isDCMode);
-        // SoundManager.Instance.PlayRotateDialTo200VO();
-        // UIManager.Instance.RotateDialTo200UI(true);
-        
+        uiManager.TurnDialToACUI(false);
+
+        yield return new WaitForSeconds(1f);
+
+
+        UIManager.Instance.RotateDialTo200UI(true);
+        soundManager.PlayTurnTheDialTo200();
+        yield return WaitForAudio();
+        UIManager.Instance.acDCSwitchIndicatorUI.SetActive(false);
+
+
         yield return new WaitUntil(() => !InteractionManager.Instance.isDCMode && InteractionManager.Instance.isACOn200V);
+        UIManager.Instance.RotateDialTo200UI(false);
 
         yield return new WaitForSeconds(2f);
 
-        uiManager.TurnDialToACUI(false);
         soundManager.PlayACVoltageChangesDirectionVO();
         yield return WaitForAudio();
 
@@ -245,7 +279,9 @@ public class SceneManager : MonoBehaviour
         soundManager.PlayPlaceProbesOnACSocketVO();
         yield return WaitForAudio();
 
-        yield return new WaitUntil(() => InteractionManager.Instance.redTouch == "SwitchMinus" && InteractionManager.Instance.blackTouch == "SwitchPlus");
+        yield return new WaitUntil
+        (() => (InteractionManager.Instance.redTouch == "SwitchMinus" && InteractionManager.Instance.blackTouch == "SwitchPlus")
+         || (InteractionManager.Instance.redTouch == "SwitchPlus" && InteractionManager.Instance.blackTouch == "SwitchMinus"));
         yield return new WaitForSeconds(2f);
 
         uiManager.InsertProbesInACSocketUI(false);
@@ -261,8 +297,10 @@ public class SceneManager : MonoBehaviour
         soundManager.PlayReverseTheProbeOnACVO();
         yield return WaitForAudio();
 
-        yield return new WaitUntil(() => InteractionManager.Instance.redTouch == "SwitchPlus" && InteractionManager.Instance.blackTouch == "SwitchMinus");
-        yield return new WaitForSeconds(2f);
+ yield return new WaitUntil
+        (() => (InteractionManager.Instance.redTouch == "SwitchMinus" && InteractionManager.Instance.blackTouch == "SwitchPlus")
+         || (InteractionManager.Instance.redTouch == "SwitchPlus" && InteractionManager.Instance.blackTouch == "SwitchMinus"));
+                 yield return new WaitForSeconds(2f);
 
         uiManager.ReverseProbesInACSocketUI(false);
         soundManager.PlayACVoltageNatureVO();
@@ -283,12 +321,16 @@ public class SceneManager : MonoBehaviour
 
     {
         yield return new WaitForSeconds(5f);
+        uiManager.ConclusionUIActive(true);
+
         soundManager.PlayScene5IntroVO();
         yield return WaitForAudio();
 
-        uiManager.ConclusionUIActive(true);
         soundManager.PlayConclusionVO();
         yield return WaitForAudio();
+
+        uiManager.ExitRestartUI(true);
+
     }
 
     // =========================
@@ -321,4 +363,13 @@ public class SceneManager : MonoBehaviour
         yield return new WaitUntil(() => !SoundManager.Instance.IsPlaying());
     }
 
+    public void ExitButton(bool active)
+    {
+        Application.Quit();
+    }
+
+    public void RestartExperience()
+    {
+        SceneManager.LoadScene("MainScene");
+    }
 }

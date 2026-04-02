@@ -29,6 +29,8 @@ public class SoundManager : MonoBehaviour
 
     public AudioClip scene3IntroVO;
     public AudioClip turnTheDialToDCVO;
+    public AudioClip turnThedialTo20;
+
     public AudioClip dCFlowsInOneDirectionVO;
     public AudioClip placeTheProbesOnbatteryVO;
 
@@ -46,20 +48,25 @@ public class SoundManager : MonoBehaviour
 
     public AudioClip safteyTipsVO;
 
-    public AudioClip turnDialToAC;
+    public AudioClip turnThedialTo200;
+
 
     public AudioClip acVoltageChnagesDirectionVO;
 
-public AudioClip placeProbesOnACSocketVO;
+    public AudioClip placeProbesOnACSocketVO;
 
-public AudioClip acVoltageReadingFluctuatesVO;
+    public AudioClip acVoltageReadingFluctuatesVO;
 
-public AudioClip aCVoltageForHomeVO;
+    public AudioClip aCVoltageForHomeVO;
 
-public AudioClip reverseTheProbeOnACVO;
-public AudioClip acVoltageNatureVO;
-public AudioClip scene5IntroVO;
-public AudioClip conclusionVO;
+    public AudioClip reverseTheProbeOnACVO;
+    public AudioClip acVoltageNatureVO;
+
+    public AudioClip switchToDC;
+        public AudioClip switchToAC;
+
+    public AudioClip scene5IntroVO;
+    public AudioClip conclusionVO;
 
 
 
@@ -159,7 +166,9 @@ public AudioClip conclusionVO;
     public void PlayScene4IntroVO() => Play(scene4IntroVO);
     public void PlayMoveNearToWallSocketVO() => Play(moveNearToWallSocketVO);
     public void PlaySafteyTipsVO() => Play(safteyTipsVO);
-    public void PlayTurnDialToAC() => Play(turnDialToAC);
+    public void PlaySwitchTOAC() => Play(switchToAC);
+        public void PlaySwitchTODC() => Play(switchToDC);
+
     public void PlayACVoltageChangesDirectionVO() => Play(acVoltageChnagesDirectionVO);
     public void PlayPlaceProbesOnACSocketVO() => Play(placeProbesOnACSocketVO);
     public void PlayACVoltageReadingFluctuatesVO() => Play(acVoltageReadingFluctuatesVO);
@@ -168,12 +177,15 @@ public AudioClip conclusionVO;
     public void PlayReverseTheProbeOnACVO() => Play(reverseTheProbeOnACVO);
     public void PlayACVoltageNatureVO() => Play(acVoltageNatureVO);
 
-public void PlayScene5IntroVO() => Play(scene5IntroVO);
-public void PlayConclusionVO() => Play(conclusionVO);
+    public void PlayScene5IntroVO() => Play(scene5IntroVO);
+    public void PlayConclusionVO() => Play(conclusionVO);
+
+    public void PlayTurnTheDialTo20() => Play(turnThedialTo20);
+    public void PlayTurnTheDialTo200() => Play(turnThedialTo200);
 
     // =========================
     // 🖱 UI Sounds
     // =========================
     public void PlayBeep() => Play(beep);
-     public void PlaySlideSwitch() => Play(slideSwitch);
+    public void PlaySlideSwitch() => Play(slideSwitch);
 }

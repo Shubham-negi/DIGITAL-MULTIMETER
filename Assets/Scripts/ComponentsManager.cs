@@ -56,6 +56,7 @@ public class ComponentsManager : MonoBehaviour
         {
             child.gameObject.SetActive(state);
         }
+          UIManager.Instance.acDCSwitchIndicatorUI.SetActive(false);
     }
 
 
@@ -122,6 +123,7 @@ public class ComponentsManager : MonoBehaviour
         yield return WaitForAudio();
 
         EnableInteraction(comPort);
+        UIManager.Instance.comPortIndicatorUI.SetActive(true);
     }
 
     public void OnComPortClick()
@@ -131,12 +133,16 @@ public class ComponentsManager : MonoBehaviour
 
     IEnumerator OnComPortClickRoutine()
     {
+                UIManager.Instance.comPortIndicatorUI.SetActive(false);
+
         DisableInteraction(comPort);
         SoundManager.Instance.PlayBlackProbe();
 
         yield return WaitForAudio();
 
         EnableInteraction(VΩPort);
+                UIManager.Instance.VΩPortIndicatorUI.SetActive(true);
+
     }
 
     public void OnVΩPortClick()
@@ -146,12 +152,15 @@ public class ComponentsManager : MonoBehaviour
 
     IEnumerator OnVΩPortClickRoutine()
     {
+                        UIManager.Instance.VΩPortIndicatorUI.SetActive(false);
+
         DisableInteraction(VΩPort);
         SoundManager.Instance.PlayRedProbe();
 
         yield return WaitForAudio();
 
         EnableInteraction(continuitySymbol);
+        UIManager.Instance.continuitySymbolIndicatorUI.SetActive(true);
     }
 
     public void OnContinuitySymbolClick()
@@ -160,7 +169,8 @@ public class ComponentsManager : MonoBehaviour
     }
 
     IEnumerator OnContinuitySymbolClickRoutine()
-    {
+    {        UIManager.Instance.continuitySymbolIndicatorUI.SetActive(false);
+
         DisableInteraction(continuitySymbol);
         SoundManager.Instance.PlayContinuitySymbol();
 
@@ -176,10 +186,14 @@ public class ComponentsManager : MonoBehaviour
 
     IEnumerator OnSelectorDialClickRoutine()
     {
+        
+        UIManager.Instance.comPortIndicatorUI.SetActive(true);
+        UIManager.Instance.VΩPortIndicatorUI.SetActive(true);
         DisableInteraction(selectorDial);
         SoundManager.Instance.PlaySelectorDial();
 
         yield return WaitForAudio();
+       UIManager.Instance.randBProbeHintButtonUI.SetActive(true);
 
         UserAction();
 

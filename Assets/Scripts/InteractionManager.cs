@@ -75,7 +75,6 @@ public class InteractionManager : MonoBehaviour
         if (AreProbesTouching())
         {
             Show("ON");
-            SoundManager.Instance.PlayBeep();
             Debug.Log("Circuit is working (Probes touching)");
             return;
         }
@@ -111,13 +110,11 @@ public class InteractionManager : MonoBehaviour
     {
         if (redTouch == "BatteryPlus" && blackTouch == "BatteryMinus")
         {
-            SoundManager.Instance.PlayRedAndBlackIsConnectedVO();
             Show("+9V");
         }
         else if (redTouch == "BatteryMinus" && blackTouch == "BatteryPlus")
         {
             Show("-9V");
-            SoundManager.Instance.PlayVoltageIsReversedInBatteryVO();
         }
         else
         {
