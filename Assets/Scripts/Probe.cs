@@ -10,7 +10,7 @@ public class Probe : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         currentTouch = other.gameObject.name;
-
+    print($"{probeType} probe touched {currentTouch} Collider is - {other.name}");
         InteractionManager.Instance.UpdateProbe(this, other);
     }
 
