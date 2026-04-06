@@ -43,15 +43,7 @@ public class ResetOnFall : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        // 🔹 Reset if hits floor (optional)
-        if (useCollisionReset && collision.gameObject.CompareTag(floorTag))
-        {
-            if (!isResetting)
-                StartCoroutine(ResetAfterDelay());
-        }
-    }
+  
 
     IEnumerator ResetAfterDelay()
     {

@@ -35,18 +35,13 @@ public class GameManager : MonoBehaviour
     // =========================
     private IEnumerator Scene0_Intro()
     {
+       
+
+        soundManager.PlayScene0Intro();
+
         yield return new WaitForSeconds(2f);
 
-        StartCoroutine(ScaleLightCone());
-
-        float voiceLength = soundManager.scene1Intro.length;
-        soundManager.PlayScene1Intro();
-
-        yield return new WaitForSeconds(voiceLength);
-        yield return new WaitForSeconds(2f);
-
-        softFocusLightCone.gameObject.SetActive(false);
-
+soundManager.PlayClickBegin();
         uiManager.BeginUI(true);
     }
 
@@ -60,7 +55,10 @@ public class GameManager : MonoBehaviour
         uiManager.ShowComponentsUI(true);
         componentManager.Scene1_ComponentLearning();
 
-        yield return new WaitUntil(() => componentManager.AllComponentsLearned());
+        yield return new WaitUntil(() => componentManager.AllComponentsClicked());
+        componentManager.MultimeterComponentIntroduction();
+        yield return new WaitUntil(() => componentManager.AllComponentsLearned==true);
+             
 
         UIManager.Instance.randBProbeHintButtonUI.SetActive(false);
         UIManager.Instance.comPortIndicatorUI.SetActive(false);
@@ -76,6 +74,7 @@ public class GameManager : MonoBehaviour
         componentManager.DisableInteraction(componentManager.comPort);
         componentManager.DisableInteraction(componentManager.blackProbeConnector);
         componentManager.DisableInteraction(componentManager.redProbeConnector);
+
 
 
 

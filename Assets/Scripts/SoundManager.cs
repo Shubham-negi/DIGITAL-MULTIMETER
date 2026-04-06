@@ -8,18 +8,35 @@ public class SoundManager : MonoBehaviour
     private AudioSource audioSource;
 
     [Header("Voice Overs")]
-    public AudioClip scene1Intro;
+
+
+    [Header("Scene 0 Voice Overs")]
+
+    public AudioClip moduleIntroVO;
     public AudioClip beginButtonClick;
+
+    [Header("Scene 1 Voice Overs")]
     public AudioClip eachComponentClick;
     public AudioClip digitalMultimeter;
     public AudioClip batteryVO;
     public AudioClip blackProbeVO;
     public AudioClip redProbeVO;
+    public AudioClip acSocketBoardVO;
+
+    public AudioClip exploreTheMultimeterVO;
+
+
     public AudioClip continuitySymbolVO;
+    public AudioClip acDcSwitchVO;
+    public AudioClip volategIntroVO;
+
     public AudioClip selectorDialVO;
+
+    public AudioClip blackProbeComConnectVO;
+    public AudioClip nowConnectRedProbeVO;
+    public AudioClip redProbeComConnectVO;
     public AudioClip probesConnectedVO;
     public AudioClip connectRedAndBlackProbesVO;
-    public AudioClip acSocketVO;
     public AudioClip checkingMultimeterWorkingVO;
     public AudioClip turnToContinuityVO;
     public AudioClip touchBothProbesVO;
@@ -63,7 +80,7 @@ public class SoundManager : MonoBehaviour
     public AudioClip acVoltageNatureVO;
 
     public AudioClip switchToDC;
-        public AudioClip switchToAC;
+    public AudioClip switchToAC;
 
     public AudioClip scene5IntroVO;
     public AudioClip conclusionVO;
@@ -131,7 +148,7 @@ public class SoundManager : MonoBehaviour
     // =========================
     // 🎤 Voice Overs
     // =========================
-    public void PlayScene1Intro() => Play(scene1Intro);
+    public void PlayScene0Intro() => Play(moduleIntroVO);
     public void PlayClickBegin() => Play(beginButtonClick);
     public void PlayClickEachComponent() => Play(eachComponentClick);
     public void PlayDigitalMultimeter() => Play(digitalMultimeter);
@@ -141,7 +158,7 @@ public class SoundManager : MonoBehaviour
     public void PlaySelectorDial() => Play(selectorDialVO);
     public void PlayProbesConnected() => Play(probesConnectedVO);
     public void PlayBatteryVO() => Play(batteryVO);
-    public void PlayACSocketVO() => Play(acSocketVO);
+    public void PlayACSocketBoardVO() => Play(acSocketBoardVO);
     public void PlayConnectRedAndBlackProbes() => Play(connectRedAndBlackProbesVO);
     public void PlayProbesConnectedVO() => Play(probesConnectedVO);
     public void PlayCheckingMultimeterWorkingVO() => Play(checkingMultimeterWorkingVO);
@@ -167,7 +184,7 @@ public class SoundManager : MonoBehaviour
     public void PlayMoveNearToWallSocketVO() => Play(moveNearToWallSocketVO);
     public void PlaySafteyTipsVO() => Play(safteyTipsVO);
     public void PlaySwitchTOAC() => Play(switchToAC);
-        public void PlaySwitchTODC() => Play(switchToDC);
+    public void PlaySwitchTODC() => Play(switchToDC);
 
     public void PlayACVoltageChangesDirectionVO() => Play(acVoltageChnagesDirectionVO);
     public void PlayPlaceProbesOnACSocketVO() => Play(placeProbesOnACSocketVO);
@@ -182,10 +199,20 @@ public class SoundManager : MonoBehaviour
 
     public void PlayTurnTheDialTo20() => Play(turnThedialTo20);
     public void PlayTurnTheDialTo200() => Play(turnThedialTo200);
+    public void PlayAcDcSwitchVO() => Play(acDcSwitchVO);
+    public void PlayVoltageIntroVO() => Play(volategIntroVO);
+
+    public void PlayBlackProbeComConnectVO() => Play(blackProbeComConnectVO);
+    public void PlayNowConnectRedProbeVO() => Play(nowConnectRedProbeVO);   
+
+    public void PlayRedProbeComConnectVO() => Play(redProbeComConnectVO);
+
 
     // =========================
     // 🖱 UI Sounds
     // =========================
     public void PlayBeep() => Play(beep);
     public void PlaySlideSwitch() => Play(slideSwitch);
+
+    public void PlayExploreTheMultimeterVO() => Play(exploreTheMultimeterVO);
 }

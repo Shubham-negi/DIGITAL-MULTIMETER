@@ -49,6 +49,8 @@ public class UIManager : MonoBehaviour
     public GameObject VΩPortIndicatorUI;
     public GameObject continuitySymbolIndicatorUI;
     public GameObject acDCSwitchIndicatorUI;
+        public GameObject selectorDialIndicatorUI;
+
 
     void Awake()
     {

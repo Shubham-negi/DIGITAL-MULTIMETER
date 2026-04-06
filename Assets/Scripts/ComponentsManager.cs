@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using HighlightPlus;
@@ -26,16 +27,22 @@ public class ComponentsManager : MonoBehaviour
     public GameObject redProbeHolder;
 
     public GameObject multimeter;
+    [Header("AC Socket")]
+
     public GameObject acSocket;
+    public GameObject acSocketACIndicator;
+    public GameObject acSocketDCIndicator;
+
+
+
     public GameObject comPort;
     public GameObject VΩPort;
     public GameObject selectorDial;
     public GameObject continuitySymbol;
     public Transform acDCSwitch;
-    private int actionCount = 0;
 
 
-
+    public bool AllComponentsLearned = false;
 
 
 
@@ -56,7 +63,7 @@ public class ComponentsManager : MonoBehaviour
         {
             child.gameObject.SetActive(state);
         }
-          UIManager.Instance.acDCSwitchIndicatorUI.SetActive(false);
+        UIManager.Instance.acDCSwitchIndicatorUI.SetActive(false);
     }
 
 
@@ -108,22 +115,33 @@ public class ComponentsManager : MonoBehaviour
     {
         SoundManager.Instance.PlayClickEachComponent();
         EnableInteraction(multimeter);
+        EnableInteraction(battery);
+
+        EnableInteraction(redProbe);
+
+        EnableInteraction(blackProbe);
+
+        EnableInteraction(acSocket.gameObject);
+
     }
 
-    public void OnMultimeterClick()
+    public void MultimeterComponentIntroduction()
     {
         StartCoroutine(OnMultimeterClickRoutine());
     }
 
     IEnumerator OnMultimeterClickRoutine()
     {
-        DisableInteraction(multimeter);
-        SoundManager.Instance.PlayDigitalMultimeter();
 
+        yield return new WaitForSeconds(2f);
+        SoundManager.Instance.PlayExploreTheMultimeterVO();
         yield return WaitForAudio();
 
         EnableInteraction(comPort);
         UIManager.Instance.comPortIndicatorUI.SetActive(true);
+
+
+
     }
 
     public void OnComPortClick()
@@ -133,7 +151,7 @@ public class ComponentsManager : MonoBehaviour
 
     IEnumerator OnComPortClickRoutine()
     {
-                UIManager.Instance.comPortIndicatorUI.SetActive(false);
+        UIManager.Instance.comPortIndicatorUI.SetActive(false);
 
         DisableInteraction(comPort);
         SoundManager.Instance.PlayBlackProbe();
@@ -141,7 +159,7 @@ public class ComponentsManager : MonoBehaviour
         yield return WaitForAudio();
 
         EnableInteraction(VΩPort);
-                UIManager.Instance.VΩPortIndicatorUI.SetActive(true);
+        UIManager.Instance.VΩPortIndicatorUI.SetActive(true);
 
     }
 
@@ -152,7 +170,7 @@ public class ComponentsManager : MonoBehaviour
 
     IEnumerator OnVΩPortClickRoutine()
     {
-                        UIManager.Instance.VΩPortIndicatorUI.SetActive(false);
+        UIManager.Instance.VΩPortIndicatorUI.SetActive(false);
 
         DisableInteraction(VΩPort);
         SoundManager.Instance.PlayRedProbe();
@@ -169,15 +187,19 @@ public class ComponentsManager : MonoBehaviour
     }
 
     IEnumerator OnContinuitySymbolClickRoutine()
-    {        UIManager.Instance.continuitySymbolIndicatorUI.SetActive(false);
+    {
+        UIManager.Instance.continuitySymbolIndicatorUI.SetActive(false);
 
         DisableInteraction(continuitySymbol);
         SoundManager.Instance.PlayContinuitySymbol();
 
         yield return WaitForAudio();
+        UIManager.Instance.selectorDialIndicatorUI.SetActive(true);
 
         EnableInteraction(selectorDial);
     }
+
+
 
     public void OnSelectorDialClick()
     {
@@ -186,67 +208,168 @@ public class ComponentsManager : MonoBehaviour
 
     IEnumerator OnSelectorDialClickRoutine()
     {
-        
-        UIManager.Instance.comPortIndicatorUI.SetActive(true);
-        UIManager.Instance.VΩPortIndicatorUI.SetActive(true);
+
+
+        UIManager.Instance.selectorDialIndicatorUI.SetActive(false);
+
         DisableInteraction(selectorDial);
         SoundManager.Instance.PlaySelectorDial();
-
         yield return WaitForAudio();
-       UIManager.Instance.randBProbeHintButtonUI.SetActive(true);
 
-        UserAction();
+        UIManager.Instance.acDCSwitchIndicatorUI.SetActive(true);
+
+
+        EnableInteraction(acDCSwitch.gameObject);
 
     }
 
-    // =========================
-    // 👤 User Action
-    // =========================
-
-    public void UserAction()
+    public void OnAcDcVolategeSwitchClick()
     {
-        SoundManager.Instance.PlayConnectRedAndBlackProbes();
+        StartCoroutine(OnAcDcVoltageSwitchClickRoutine());
+    }
 
-        EnableInteraction(VΩPort);
+    IEnumerator OnAcDcVoltageSwitchClickRoutine()
+    {
+        SoundManager.Instance.PlayAcDcSwitchVO();
+        yield return WaitForAudio();
+
+        yield return new WaitForSeconds(1f);
+        acSocketACIndicator.GetComponent<HighlightEffect>().enabled = true;
+        acSocketDCIndicator.GetComponent<HighlightEffect>().enabled = true;
+
+        SoundManager.Instance.PlayVoltageIntroVO();
+        yield return WaitForAudio();
+
+        yield return new WaitForSeconds(1f);
+        acSocketACIndicator.gameObject.SetActive(false);
+        acSocketDCIndicator.gameObject.SetActive(false);
+        UIManager.Instance.comPortIndicatorUI.SetActive(true);
+        UIManager.Instance.VΩPortIndicatorUI.SetActive(true);
+
+        UIManager.Instance.randBProbeHintButtonUI.SetActive(true);
+        DisableInteraction(acDCSwitch.gameObject);
+        StartCoroutine(StartBlackProbeStep());
+    }
+
+    // ==================================
+    // 👤 User Action On Black and Red Probe
+    // ====================================
+
+
+
+    IEnumerator StartBlackProbeStep()
+    {
+
+        SoundManager.Instance.PlayBlackProbeComConnectVO();
+
+        yield return WaitForAudio();
+
         EnableInteraction(comPort);
         EnableInteraction(blackProbeConnector);
-        EnableInteraction(redProbeConnector);
+
         EnableXRGrabbable(blackProbeConnector, true);
-        EnableXRGrabbable(redProbeConnector, true);
 
-
-        var vSocket = VΩPort.GetComponent<XRSocketInteractor>();
         var cSocket = comPort.GetComponent<XRSocketInteractor>();
-
-        vSocket.enabled = true;
         cSocket.enabled = true;
 
-        var vCol = VΩPort.GetComponent<BoxCollider>();
         var cCol = comPort.GetComponent<BoxCollider>();
-
-        vCol.isTrigger = true;
         cCol.isTrigger = true;
 
-        UIManager.Instance.ClickEachComponentTextUI(false);
+        // UI + VO
         UIManager.Instance.ShowComponentsUI(false);
         UIManager.Instance.UserActionOnRAndBProbesUI(true);
 
 
     }
 
+    public void OnBlackProbeConnected()
+    {
+        StartCoroutine(StartRedProbeStep());
+    }
+
+   IEnumerator StartRedProbeStep()
+{
+    // =========================
+    // 🔒 LOCK BLACK PROBE PROPERLY
+    // =========================
+
+
+    yield return new WaitForSeconds(1f);
+    EnableXRGrabbable(blackProbeConnector, false);
+
+    var rb = blackProbeConnector.GetComponent<Rigidbody>();
+
+    rb.velocity    = Vector3.zero;
+    rb.angularVelocity = Vector3.zero;
+    rb.isKinematic = true;
+    rb.useGravity = false;
+
+  
+
+ 
+     
+    // Disable interaction completely
+    DisableInteraction(blackProbeConnector);
+
+    // Parent it so it stays fixed
+   // blackProbeConnector.transform.SetParent(comPort.transform);
+
+
+    // =========================
+    // 🔊 TRANSITION VO
+    // =========================
+
+    SoundManager.Instance.PlayNowConnectRedProbeVO();
+    // “Now connect the red probe to the voltage port.”
+    yield return WaitForAudio();
+
+
+    // =========================
+    // 🔴 ENABLE RED PROBE STEP
+    // =========================
+
+
+    DisableInteraction(comPort);
+
+    EnableInteraction(VΩPort);
+    EnableInteraction(redProbeConnector);
+
+    EnableXRGrabbable(redProbeConnector, true);
+
+
+    // =========================
+    // 🔊 INSTRUCTION VO
+    // =========================
+
+    SoundManager.Instance.PlayRedProbeComConnectVO();
+    yield return WaitForAudio();
+}
     // =========================
     // ✅ Progress Tracking
     // =========================
 
-    public void MarkActionComplete()
+
+
+    public void MarkComponentsLearned()
     {
-        actionCount++;
+        AllComponentsLearned = true;
     }
 
-    public bool AllComponentsLearned()
+
+    // =========================
+    // ✅ Progress Tracking of component click 
+
+    // =========================
+    internal int componentActionCount = 0;
+    public void MarkComponentComplete()
+    {
+        componentActionCount++;
+    }
+
+    public bool AllComponentsClicked()
     {
 
 
-        return actionCount >= 2;
+        return componentActionCount >= 5;
     }
 }
