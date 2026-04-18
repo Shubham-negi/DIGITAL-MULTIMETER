@@ -287,63 +287,69 @@ public class ComponentsManager : MonoBehaviour
         StartCoroutine(StartRedProbeStep());
     }
 
-   IEnumerator StartRedProbeStep()
-{
-    // =========================
-    // 🔒 LOCK BLACK PROBE PROPERLY
-    // =========================
+    IEnumerator StartRedProbeStep()
+    {
+        // =========================
+        // 🔒 LOCK BLACK PROBE PROPERLY
+        // =========================
 
 
-    yield return new WaitForSeconds(1f);
-    EnableXRGrabbable(blackProbeConnector, false);
+        yield return new WaitForSeconds(1f);
+        EnableXRGrabbable(blackProbeConnector, false);
 
-    var rb = blackProbeConnector.GetComponent<Rigidbody>();
+        var rb = blackProbeConnector.GetComponent<Rigidbody>();
 
-    rb.velocity    = Vector3.zero;
-    rb.angularVelocity = Vector3.zero;
-    rb.isKinematic = true;
-    rb.useGravity = false;
-
-  
-
- 
-     
-    // Disable interaction completely
-    DisableInteraction(blackProbeConnector);
-
-    // Parent it so it stays fixed
-   // blackProbeConnector.transform.SetParent(comPort.transform);
+        rb.velocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
+        rb.isKinematic = true;
+        rb.useGravity = false;
 
 
-    // =========================
-    // 🔊 TRANSITION VO
-    // =========================
-
-    SoundManager.Instance.PlayNowConnectRedProbeVO();
-    // “Now connect the red probe to the voltage port.”
-    yield return WaitForAudio();
 
 
-    // =========================
-    // 🔴 ENABLE RED PROBE STEP
-    // =========================
+
+        // Disable interaction completely
+        DisableInteraction(blackProbeConnector);
+
+        // Parent it so it stays fixed
+        // blackProbeConnector.transform.SetParent(comPort.transform);
 
 
-    DisableInteraction(comPort);
+        // =========================
+        // 🔊 TRANSITION VO
+        // =========================
 
-    EnableInteraction(VΩPort);
-    EnableInteraction(redProbeConnector);
+        SoundManager.Instance.PlayNowConnectRedProbeVO();
+        // “Now connect the red probe to the voltage port.”
+        yield return WaitForAudio();
 
-    EnableXRGrabbable(redProbeConnector, true);
+
+        // =========================
+        // 🔴 ENABLE RED PROBE STEP
+        // =========================
 
 
-    // =========================
-    // 🔊 INSTRUCTION VO
-    // =========================
+        DisableInteraction(comPort);
 
-    SoundManager.Instance.PlayRedProbeComConnectVO();
-    yield return WaitForAudio();
-}
+        EnableInteraction(VΩPort);
+        
+        var cSocket = VΩPort.GetComponent<XRSocketInteractor>();
+        cSocket.enabled = true;
+
+        var cCol = VΩPort.GetComponent<BoxCollider>();
+        cCol.isTrigger = true;
+        EnableInteraction(redProbeConnector);
+
+        EnableXRGrabbable(redProbeConnector, true);
+
+
+        // =========================
+        // 🔊 INSTRUCTION VO
+        // =========================
+
+        SoundManager.Instance.PlayRedProbeComConnectVO();
+        yield return WaitForAudio();
+    }
     // =========================
     // ✅ Progress Tracking
     // =========================
