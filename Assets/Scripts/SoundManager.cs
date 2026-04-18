@@ -84,6 +84,16 @@ public class SoundManager : MonoBehaviour
 
     public AudioClip scene5IntroVO;
     public AudioClip conclusionVO;
+        public AudioClip conclusionVO2;
+                public AudioClip activity2NavigationVO;
+
+
+
+       // ----------------------------------------Activity 2  voice overs------------------
+       public AudioClip activity2IntroVO;   
+
+       public AudioClip turnOnSwitch;
+
 
 
 
@@ -208,6 +218,8 @@ public class SoundManager : MonoBehaviour
     public void PlayRedProbeComConnectVO() => Play(redProbeComConnectVO);
 
 
+
+
     // =========================
     // 🖱 UI Sounds
     // =========================
@@ -215,4 +227,11 @@ public class SoundManager : MonoBehaviour
     public void PlaySlideSwitch() => Play(slideSwitch);
 
     public void PlayExploreTheMultimeterVO() => Play(exploreTheMultimeterVO);
+
+    public void PlayActivity2IntroVO() => Play(activity2IntroVO);
+
+    public void PlayActivity2NavigationVO() => Play(activity2NavigationVO);
+    public void PlayConclusionVO2() => Play(conclusionVO2);
+
+    public void PlayTurnOnSwitchVO() => Play(turnOnSwitch);
 }

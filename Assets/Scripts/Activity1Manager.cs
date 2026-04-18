@@ -8,7 +8,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
 
-public class GameManager : MonoBehaviour
+public class ActivityManager : MonoBehaviour
 {
     [Header("Managers")]
     public UIManager uiManager;
@@ -36,13 +36,13 @@ public class GameManager : MonoBehaviour
     // =========================
     private IEnumerator Scene0_Intro()
     {
-       
+
 
         soundManager.PlayScene0Intro();
 
-        yield return new WaitForSeconds(2f);
+        yield return WaitForAudio(); 
 
-soundManager.PlayClickBegin();
+        soundManager.PlayClickBegin();
         uiManager.BeginUI(true);
     }
 
@@ -58,8 +58,8 @@ soundManager.PlayClickBegin();
 
         yield return new WaitUntil(() => componentManager.AllComponentsClicked());
         componentManager.MultimeterComponentIntroduction();
-        yield return new WaitUntil(() => componentManager.AllComponentsLearned==true);
-             
+        yield return new WaitUntil(() => componentManager.AllComponentsLearned == true);
+
 
         UIManager.Instance.randBProbeHintButtonUI.SetActive(false);
         UIManager.Instance.comPortIndicatorUI.SetActive(false);
@@ -209,7 +209,7 @@ soundManager.PlayClickBegin();
         yield return WaitForAudio();
         yield return new WaitUntil(() => InteractionManager.Instance.redTouch == "BatteryMinus" && InteractionManager.Instance.blackTouch == "BatteryPlus");
         UIManager.Instance.ObserveTheVoltageReadingUI(false);
-      
+
 
         yield return new WaitForSeconds(2f);
 
@@ -298,10 +298,10 @@ soundManager.PlayClickBegin();
         soundManager.PlayReverseTheProbeOnACVO();
         yield return WaitForAudio();
 
- yield return new WaitUntil
-        (() => (InteractionManager.Instance.redTouch == "SwitchMinus" && InteractionManager.Instance.blackTouch == "SwitchPlus")
-         || (InteractionManager.Instance.redTouch == "SwitchPlus" && InteractionManager.Instance.blackTouch == "SwitchMinus"));
-                 yield return new WaitForSeconds(2f);
+        yield return new WaitUntil
+               (() => (InteractionManager.Instance.redTouch == "SwitchMinus" && InteractionManager.Instance.blackTouch == "SwitchPlus")
+                || (InteractionManager.Instance.redTouch == "SwitchPlus" && InteractionManager.Instance.blackTouch == "SwitchMinus"));
+        yield return new WaitForSeconds(2f);
 
         uiManager.ReverseProbesInACSocketUI(false);
         soundManager.PlayACVoltageNatureVO();
@@ -329,40 +329,51 @@ soundManager.PlayClickBegin();
 
         soundManager.PlayConclusionVO();
         yield return WaitForAudio();
+        soundManager.PlayConclusionVO2();
+        yield return WaitForAudio(); 
+        soundManager.PlayActivity2NavigationVO();
+        yield return WaitForAudio();
 
-        uiManager.ExitRestartUI(true);
+        componentManager.activity2HighlightEffect.enabled = true;
+        componentManager.destinationMarker.SetActive(true);
+        // uiManager.ExitRestartUI(true);
+
+
+
 
     }
 
-    // =========================
-    // UTIL — LIGHT CONE SCALE
-    // =========================
-    private IEnumerator ScaleLightCone()
-    {
-        if (softFocusLightCone == null)
-            yield break;
-
-        Vector3 initialScale = softFocusLightCone.localScale;
-        float time = 0f;
-
-        while (time < scaleDuration)
-        {
-            time += Time.deltaTime;
-            float t = time / scaleDuration;
-
-            softFocusLightCone.localScale =
-                Vector3.Lerp(initialScale, Vector3.one * targetScale, t);
-
-            yield return null;
-        }
-
-        softFocusLightCone.localScale = Vector3.one * targetScale;
-    }
 
     IEnumerator WaitForAudio()
     {
         yield return new WaitUntil(() => !SoundManager.Instance.IsPlaying());
     }
+    /// <summary>
+    /// Activity 2 
+    /// </summary>
+    /// <param name="active"></param>
+
+
+    public void Activity2DestinationReached()
+    {
+         componentManager.activity2HighlightEffect.enabled = false;
+        componentManager.destinationMarker.SetActive(false);
+        soundManager.PlayActivity2IntroVO();
+
+        Invoke(nameof(Activity2Start), 5f);
+
+
+    }
+
+    public void Activity2Start()
+    {
+        soundManager.PlayTurnOnSwitchVO();
+        uiManager.turnOnSwitchIndicatorUI.SetActive(true);
+
+
+    }
+
+
 
     public void ExitButton(bool active)
     {

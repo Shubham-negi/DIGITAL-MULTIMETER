@@ -40,7 +40,7 @@ public class InteractionManager : MonoBehaviour
         isDcOn20V = false;
 
         // 🔹 Continuity Mode
-        if (value >= 0.735f && value <= 0.775f)
+        if (value >= 0.73f && value <= 0.78f)
         {
             isContinuityMode = true;
         }

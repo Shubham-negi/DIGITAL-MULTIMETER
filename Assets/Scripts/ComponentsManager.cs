@@ -41,6 +41,10 @@ public class ComponentsManager : MonoBehaviour
     public GameObject continuitySymbol;
     public Transform acDCSwitch;
 
+    public  HighlightEffect activity2HighlightEffect;
+        public  GameObject destinationMarker;
+
+
 
     public bool AllComponentsLearned = false;
 

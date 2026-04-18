@@ -29,13 +29,13 @@ public class UIManager : MonoBehaviour
     // public GameObject scene4IntroUI;
     public GameObject safetyTipsUI;
     public GameObject turnDialToACUI;
-        public GameObject turnThedialTo200UI;
+    public GameObject turnThedialTo200UI;
     public GameObject insertProbesInACSocketUI;
     public GameObject observeACVoltageFluctuationsUI;
     public GameObject reverseProbesInACSocketUI;
 
     public GameObject ConclusionUI;
-        public GameObject exitRestartUI;
+    public GameObject exitRestartUI;
 
 
 
@@ -49,7 +49,10 @@ public class UIManager : MonoBehaviour
     public GameObject VΩPortIndicatorUI;
     public GameObject continuitySymbolIndicatorUI;
     public GameObject acDCSwitchIndicatorUI;
-        public GameObject selectorDialIndicatorUI;
+    public GameObject selectorDialIndicatorUI;
+
+    public GameObject turnOnSwitchIndicatorUI;
+
 
 
     void Awake()
