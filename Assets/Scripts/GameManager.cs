@@ -6,6 +6,7 @@ using Unity.VRTemplate;
 using Unity.XR.CoreUtils;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.XR.Interaction.Toolkit.Interactables;
 
 public class GameManager : MonoBehaviour
 {
@@ -141,6 +142,7 @@ soundManager.PlayClickBegin();
 
         UIManager.Instance.TurnTheDialToDCUI(true);
         componentManager.EnableInteraction(componentManager.acDCSwitch.gameObject);
+        componentManager.acDCSwitch.gameObject.GetComponent<XRSimpleInteractable>().enabled = true;
         soundManager.PlayTurnTheDialToDCVO();
         soundManager.PlaySwitchTOAC();
 
