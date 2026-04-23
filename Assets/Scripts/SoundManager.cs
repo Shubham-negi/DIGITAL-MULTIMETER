@@ -97,6 +97,35 @@ public class SoundManager : MonoBehaviour
 
     public AudioClip noLightVO;
 
+    public AudioClip connectBlackProbToBattery;
+    public AudioClip blackProbConnected;
+    public AudioClip touchRedProb;
+
+    public AudioClip batteryIsWorking;
+    public AudioClip moveToSwitchInput;
+
+    public AudioClip thisIsswitchInput;
+
+    public AudioClip powerhasreachedToSwitch;
+
+        public AudioClip moveToSwitchOutput;
+
+    public AudioClip waitNoVoltage;
+        public AudioClip FaultySwitchfound;
+
+                public AudioClip removeFaultySwitch;
+
+
+        public AudioClip replaceSwitchWithNew;
+
+
+        public AudioClip faultyMustbeReplaced;
+
+
+
+
+
+
 
 
     [Header("Sounds")]
@@ -242,6 +271,36 @@ public class SoundManager : MonoBehaviour
 
     public void PlayActivity2NavigationVO() => Play(activity2NavigationVO);
     public void PlayConclusionVO2() => Play(conclusionVO2);
+
+    public void PlayConnectBlackProbTobattery()=>Play(connectBlackProbToBattery);
+        public void PlayBlackProbConnected()=>Play(blackProbConnected);
+
+    public void PlayTouchRedProb()=>Play(touchRedProb);
+
+    public void PlayBatteryIsWorking()=>Play(batteryIsWorking);
+        public void PlayMoveToSwitchInput()=>Play(moveToSwitchInput);
+
+    public void PlayThisIsswitchInput()=>Play(thisIsswitchInput);
+
+    public void PlayPowerhasreachedToSwitch()=>Play(powerhasreachedToSwitch);
+
+        public void PlayMoveToSwitchOutput()=>Play(moveToSwitchOutput);
+
+                public void PlayWaitNoVoltage()=>Play(waitNoVoltage);
+
+
+        public void PlayFaultySwitchfound()=>Play(FaultySwitchfound);
+
+                public void PlayRemoveFaultySwitch()=>Play(removeFaultySwitch);
+
+
+        public void PlayReplaceSwitchWithNew()=>Play(replaceSwitchWithNew);
+
+
+        public void PlayFaultyMustbeReplaced()=>Play(faultyMustbeReplaced);
+
+
+
 
 
 }
