@@ -5,6 +5,8 @@ public class InteractionManager : MonoBehaviour
 {
     public static InteractionManager Instance;
 
+    public ActivityManager activityManager;
+
     public string redTouch;
     public string blackTouch;
 
@@ -22,6 +24,13 @@ public class InteractionManager : MonoBehaviour
 
 
     public bool isDCMode = false;
+        public bool isDCModeACTVTY2 = false;
+
+
+
+    [Header("ACtivity 2 ")]
+    public Transform lightBulb;
+    public bool faultySwitch ;
 
     void Awake()
     {
@@ -55,7 +64,7 @@ public class InteractionManager : MonoBehaviour
             isACOn200V = true;
         }
 
-       // Debug.Log($"Dial Value: {value} | Continuity: {isContinuityMode} | DC20V: {isDcOn20V} | AC200V: {isACOn200V}");
+        // Debug.Log($"Dial Value: {value} | Continuity: {isContinuityMode} | DC20V: {isDcOn20V} | AC200V: {isACOn200V}");
     }
 
     // =========================
@@ -64,7 +73,7 @@ public class InteractionManager : MonoBehaviour
     public void UpdateProbe(Probe probe, Collider other)
     {
         // ❌ Block everything if not in continuity mode
-       
+
         // 🔹 Update touch state
         if (probe.probeType == Probe.ProbeType.Red)
             redTouch = probe.currentTouch;
@@ -132,12 +141,12 @@ public class InteractionManager : MonoBehaviour
             Show("220V");
 
         }
-       else if (redTouch == "SwitchMinus" && blackTouch == "SwitchPlus")
+        else if (redTouch == "SwitchMinus" && blackTouch == "SwitchPlus")
 
         {
             Show("220V");
         }
-         else
+        else
         {
             Show("0");
         }
@@ -155,4 +164,45 @@ public class InteractionManager : MonoBehaviour
         voltageDisplay.text = value;
         Debug.Log("Voltage: " + value);
     }
+
+
+    ////Activity 2 Swich
+bool activity2SwitchCalled=false;
+    public void Activity2Switch(float val)
+    {
+        if (val >= .9 && val <= 1)
+        {
+            SoundManager.Instance.PlaySlideSwitch();
+
+            if (faultySwitch == true&&activity2SwitchCalled==false)
+            {
+                activity2SwitchCalled= true;
+                print("FaultySwitchON");
+                activityManager.FaultySwitchON();
+            }
+            else if (faultySwitch == false&&activity2SwitchCalled==true)
+            {
+                lightBulb.gameObject.SetActive(true);
+
+            }
+        }
+        
+    }
+
+    public void Activity2AC_DCSwitch()
+    {
+        if(isDCModeACTVTY2==true)
+        {
+            activityManager.ActivityAC_DCSwitchON();
+            
+
+        }
+    }
+
+    
+
+
+
+
+     
 }

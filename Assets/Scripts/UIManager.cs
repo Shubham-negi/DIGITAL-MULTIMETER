@@ -51,7 +51,14 @@ public class UIManager : MonoBehaviour
     public GameObject acDCSwitchIndicatorUI;
     public GameObject selectorDialIndicatorUI;
 
+        [Header("Activity 2")]
+
+
     public GameObject turnOnSwitchIndicatorUI;
+        public GameObject switchToDCUI;
+
+    public GameObject turnDialTo20UI;
+
 
 
 

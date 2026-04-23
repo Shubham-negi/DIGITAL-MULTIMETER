@@ -16,10 +16,10 @@ public class ActivityManager : MonoBehaviour
     public ComponentsManager componentManager;
 
 
-    [Header("Light Cone")]
-    public Transform softFocusLightCone;
-    public int targetScale;
-    public float scaleDuration = 2f;
+
+
+
+
 
     private void Start()
     {
@@ -40,7 +40,7 @@ public class ActivityManager : MonoBehaviour
 
         soundManager.PlayScene0Intro();
 
-        yield return WaitForAudio(); 
+        yield return WaitForAudio();
 
         soundManager.PlayClickBegin();
         uiManager.BeginUI(true);
@@ -330,7 +330,7 @@ public class ActivityManager : MonoBehaviour
         soundManager.PlayConclusionVO();
         yield return WaitForAudio();
         soundManager.PlayConclusionVO2();
-        yield return WaitForAudio(); 
+        yield return WaitForAudio();
         soundManager.PlayActivity2NavigationVO();
         yield return WaitForAudio();
 
@@ -356,7 +356,7 @@ public class ActivityManager : MonoBehaviour
 
     public void Activity2DestinationReached()
     {
-         componentManager.activity2HighlightEffect.enabled = false;
+        componentManager.activity2HighlightEffect.enabled = false;
         componentManager.destinationMarker.SetActive(false);
         soundManager.PlayActivity2IntroVO();
 
@@ -365,6 +365,10 @@ public class ActivityManager : MonoBehaviour
 
     }
 
+    // =========================
+    // SCENE 5   Scene5_Conclusion
+    // =========================
+    [ContextMenu("start Activity 2 ")]
     public void Activity2Start()
     {
         soundManager.PlayTurnOnSwitchVO();
@@ -372,6 +376,48 @@ public class ActivityManager : MonoBehaviour
 
 
     }
+
+    public void FaultySwitchON()
+    {
+        StartCoroutine(faultySwitchON());
+
+
+    }
+
+    private IEnumerator faultySwitchON()
+
+    {
+        yield return new WaitForSeconds(2f);
+        soundManager.PlayNoLightVO();
+        yield return WaitForAudio();
+        soundManager.PlaySwitchTODC();
+                yield return WaitForAudio();
+
+        uiManager.turnOnSwitchIndicatorUI.SetActive(false);
+        uiManager.switchToDCUI.SetActive(true);
+        componentManager.acDCSwitchACTVTY2.GetComponent<HighlightEffect>().enabled = true;
+    }
+
+    public void ActivityAC_DCSwitchON()
+    {
+        StartCoroutine(activityAC_DCSwitchON());
+    }
+
+    private IEnumerator activityAC_DCSwitchON()
+
+    {
+        yield return new WaitForSeconds(2f);
+        soundManager.PlayTurnTheDialTo20();
+        uiManager.switchToDCUI.SetActive(false);
+        uiManager.turnDialTo20UI.SetActive(true);
+
+
+
+
+    }
+
+
+
 
 
 

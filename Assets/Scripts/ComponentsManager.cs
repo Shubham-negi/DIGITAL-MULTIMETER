@@ -30,6 +30,7 @@ public class ComponentsManager : MonoBehaviour
     [Header("AC Socket")]
 
     public GameObject acSocket;
+
     public GameObject acSocketACIndicator;
     public GameObject acSocketDCIndicator;
 
@@ -41,13 +42,17 @@ public class ComponentsManager : MonoBehaviour
     public GameObject continuitySymbol;
     public Transform acDCSwitch;
 
-    public  HighlightEffect activity2HighlightEffect;
-        public  GameObject destinationMarker;
+
+    public HighlightEffect activity2HighlightEffect;
+    public GameObject destinationMarker;
 
 
 
     public bool AllComponentsLearned = false;
 
+    [Header("Activity 2 ")]
+
+    public Transform acDCSwitchACTVTY2;
 
 
 
@@ -72,6 +77,9 @@ public class ComponentsManager : MonoBehaviour
 
 
 
+
+
+
     // Optional: toggle without passing bool (better for poke)
     public void ToggleACDCSwitch()
     {
@@ -83,6 +91,21 @@ public class ComponentsManager : MonoBehaviour
         acDCSwitch.localPosition = localPos;
 
         print("acdc switch local pos is - " + acDCSwitch.localPosition);
+    }
+
+    public void ToggleACDCSwitchACTVTY2()
+    {
+        InteractionManager.Instance.isDCModeACTVTY2 = !InteractionManager.Instance.isDCModeACTVTY2;
+
+        Vector3 localPos = acDCSwitchACTVTY2.localPosition;
+        localPos.z = !InteractionManager.Instance.isDCModeACTVTY2 ? -0.01804f : -0.02151f;
+
+        acDCSwitchACTVTY2.localPosition = localPos;
+        InteractionManager.Instance.Activity2AC_DCSwitch();
+
+
+
+
     }
     // =========================
     // 🔧 Helpers
@@ -336,7 +359,7 @@ public class ComponentsManager : MonoBehaviour
         DisableInteraction(comPort);
 
         EnableInteraction(VΩPort);
-        
+
         var cSocket = VΩPort.GetComponent<XRSocketInteractor>();
         cSocket.enabled = true;
 

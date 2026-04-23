@@ -10,12 +10,12 @@ public class SoundManager : MonoBehaviour
     [Header("Voice Overs")]
 
 
-    [Header("Scene 0 Voice Overs")]
+    [Header("Intro Voice Overs")]
 
     public AudioClip moduleIntroVO;
     public AudioClip beginButtonClick;
 
-    [Header("Scene 1 Voice Overs")]
+    [Header("Activity 1 Voice Overs")]
     public AudioClip eachComponentClick;
     public AudioClip digitalMultimeter;
     public AudioClip batteryVO;
@@ -84,16 +84,18 @@ public class SoundManager : MonoBehaviour
 
     public AudioClip scene5IntroVO;
     public AudioClip conclusionVO;
-        public AudioClip conclusionVO2;
-                public AudioClip activity2NavigationVO;
+    public AudioClip conclusionVO2;
+    public AudioClip activity2NavigationVO;
 
 
+    [Header("Activity 1 Voice Overs")]
 
-       // ----------------------------------------Activity 2  voice overs------------------
-       public AudioClip activity2IntroVO;   
+    // ----------------------------------------Activity 2  voice overs------------------
+    public AudioClip activity2IntroVO;
 
-       public AudioClip turnOnSwitch;
+    public AudioClip turnOnSwitch;
 
+    public AudioClip noLightVO;
 
 
 
@@ -213,9 +215,17 @@ public class SoundManager : MonoBehaviour
     public void PlayVoltageIntroVO() => Play(volategIntroVO);
 
     public void PlayBlackProbeComConnectVO() => Play(blackProbeComConnectVO);
-    public void PlayNowConnectRedProbeVO() => Play(nowConnectRedProbeVO);   
+    public void PlayNowConnectRedProbeVO() => Play(nowConnectRedProbeVO);
 
     public void PlayRedProbeComConnectVO() => Play(redProbeComConnectVO);
+
+    // =========================
+    // Activity 2 VO
+    // =========================
+
+    public void PlayTurnOnSwitchVO() => Play(turnOnSwitch);
+    public void PlayNoLightVO() => Play(noLightVO);
+
 
 
 
@@ -233,5 +243,5 @@ public class SoundManager : MonoBehaviour
     public void PlayActivity2NavigationVO() => Play(activity2NavigationVO);
     public void PlayConclusionVO2() => Play(conclusionVO2);
 
-    public void PlayTurnOnSwitchVO() => Play(turnOnSwitch);
+
 }
