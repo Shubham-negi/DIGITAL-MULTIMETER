@@ -24,13 +24,9 @@ public class InteractionManager : MonoBehaviour
 
 
     public bool isDCMode = false;
-        public bool isDCModeACTVTY2 = false;
 
 
 
-    [Header("ACtivity 2 ")]
-    public Transform lightBulb;
-    public bool faultySwitch ;
 
     void Awake()
     {
@@ -166,38 +162,7 @@ public class InteractionManager : MonoBehaviour
     }
 
 
-    ////Activity 2 Swich
-bool activity2SwitchCalled=false;
-    public void Activity2Switch(float val)
-    {
-        if (val >= .9 && val <= 1)
-        {
-            SoundManager.Instance.PlaySlideSwitch();
-
-            if (faultySwitch == true&&activity2SwitchCalled==false)
-            {
-                activity2SwitchCalled= true;
-                print("FaultySwitchON");
-                activityManager.FaultySwitchON();
-            }
-            else if (faultySwitch == false&&activity2SwitchCalled==true)
-            {
-                lightBulb.gameObject.SetActive(true);
-
-            }
-        }
-        
-    }
-
-    public void Activity2AC_DCSwitch()
-    {
-        if(isDCModeACTVTY2==true)
-        {
-            activityManager.ActivityAC_DCSwitchON();
-            
-
-        }
-    }
+    
 
     
 

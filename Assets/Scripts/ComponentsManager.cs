@@ -50,9 +50,6 @@ public class ComponentsManager : MonoBehaviour
 
     public bool AllComponentsLearned = false;
 
-    [Header("Activity 2 ")]
-
-    public Transform acDCSwitchACTVTY2;
 
 
 
@@ -93,20 +90,7 @@ public class ComponentsManager : MonoBehaviour
         print("acdc switch local pos is - " + acDCSwitch.localPosition);
     }
 
-    public void ToggleACDCSwitchACTVTY2()
-    {
-        InteractionManager.Instance.isDCModeACTVTY2 = !InteractionManager.Instance.isDCModeACTVTY2;
-
-        Vector3 localPos = acDCSwitchACTVTY2.localPosition;
-        localPos.z = !InteractionManager.Instance.isDCModeACTVTY2 ? -0.01804f : -0.02151f;
-
-        acDCSwitchACTVTY2.localPosition = localPos;
-        InteractionManager.Instance.Activity2AC_DCSwitch();
-
-
-
-
-    }
+  
     // =========================
     // 🔧 Helpers
     // =========================

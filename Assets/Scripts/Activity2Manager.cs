@@ -69,15 +69,23 @@ public class Activity2Manager : MonoBehaviour
                 activity2SwitchCalled = true;
                 FaultySwitchON();
             }
-            if (isfaultySwitch == false&& activity2SwitchCalled == true)
+            if (isfaultySwitch == false && activity2SwitchCalled == true)
             {
 
-                print("Light Bub called to be true -------------------------------------------");
                 lightBulb.SetActive(true);
+                                activity2SwitchCalled = false;
+
+                SoundManager.Instance.PlayCircuitComplete();
+                        UIManager.Instance.turnOnTheSwitch.SetActive(true);
+
+                        Invoke(nameof(ModuleCompleted),5f);
+
+
+
+
 
             }
 
-                            print("End of funct");
 
         }
 
@@ -319,7 +327,7 @@ public class Activity2Manager : MonoBehaviour
 
         faultySwitch.GetComponent<BoxCollider>().enabled = false;
         faultySwitch.GetComponent<XRGrabInteractable>().enabled = false;
-
+newSwitch.SetActive(true);
         SoundManager.Instance.PlayReplaceSwitchWithNew();
         UIManager.Instance.replacewithnewSwitch.SetActive(true);
         yield return WaitForAudio();
@@ -346,11 +354,11 @@ public class Activity2Manager : MonoBehaviour
         isfaultySwitch = false;
 
 
-        
+
         switchSocket.SetActive(false);
 
 
-         newSwitch.GetComponent<BoxCollider>().enabled = false;
+        newSwitch.GetComponent<BoxCollider>().enabled = false;
         newSwitch.GetComponent<Rigidbody>().useGravity = false;
         newSwitch.GetComponent<Rigidbody>().isKinematic = true;
         newSwitch.GetComponent<XRGrabInteractable>().enabled = false;
@@ -358,7 +366,11 @@ public class Activity2Manager : MonoBehaviour
         newSwitch.transform.GetChild(1).GetComponent<BoxCollider>().enabled = true;
         newSwitch.transform.GetChild(1).GetComponent<XRKnob>().enabled = true;
 
+        UIManager.Instance.replacewithnewSwitch.SetActive(false);
 
+        UIManager.Instance.turnOnTheSwitch.SetActive(true);
+
+        SoundManager.Instance.PlayTurnOnSwitchForLightBulb();
 
 
 
@@ -367,7 +379,15 @@ public class Activity2Manager : MonoBehaviour
 
 
 
+    public void ModuleCompleted()
+    {
 
+        UIManager.Instance.exitRestartUI.SetActive(true);
+        SoundManager.Instance.PlayEndConclusion();
+
+
+
+    }
 
 
 

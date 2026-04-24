@@ -71,6 +71,9 @@ public class UIManager : MonoBehaviour
 
     public GameObject replacewithnewSwitch;
 
+      public GameObject turnOnTheSwitch;
+
+
 
 
 

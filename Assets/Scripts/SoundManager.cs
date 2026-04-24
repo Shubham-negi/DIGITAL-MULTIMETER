@@ -122,6 +122,12 @@ public class SoundManager : MonoBehaviour
         public AudioClip faultyMustbeReplaced;
 
 
+                public AudioClip turnOnSwitchForLightBulb;
+        public AudioClip circuitComplete;
+        public AudioClip endConclusion;
+
+
+
 
 
 
@@ -298,6 +304,10 @@ public class SoundManager : MonoBehaviour
 
 
         public void PlayFaultyMustbeReplaced()=>Play(faultyMustbeReplaced);
+
+        public void PlayTurnOnSwitchForLightBulb()=>Play(turnOnSwitchForLightBulb);
+        public void PlayCircuitComplete()=>Play(circuitComplete);
+        public void PlayEndConclusion()=>Play(endConclusion);
 
 
 

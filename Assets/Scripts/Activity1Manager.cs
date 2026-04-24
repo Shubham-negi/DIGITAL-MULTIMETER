@@ -93,6 +93,7 @@ public class ActivityManager : MonoBehaviour
     {
         yield return new WaitForSeconds(4f);
 
+        uiManager.ShowComponentsUI(false);
 
         componentManager.selectorDial.GetComponentInParent<XRKnob>().enabled = true;
         componentManager.selectorDial.GetComponentInParent<BoxCollider>().enabled = true;
@@ -150,6 +151,9 @@ public class ActivityManager : MonoBehaviour
         UIManager.Instance.acDCSwitchIndicatorUI.SetActive(true);
 
         yield return new WaitUntil(() => InteractionManager.Instance.isDCMode);
+
+              //  componentManager.DisableInteraction(componentManager.acDCSwitch.gameObject);
+
         UIManager.Instance.TurnTheDialToDCUI(false);
         yield return new WaitForSeconds(2f);
         UIManager.Instance.acDCSwitchIndicatorUI.SetActive(false);
@@ -341,6 +345,8 @@ public class ActivityManager : MonoBehaviour
 
 
 
+
+
     }
 
 
@@ -352,70 +358,6 @@ public class ActivityManager : MonoBehaviour
     /// Activity 2 
     /// </summary>
     /// <param name="active"></param>
-
-
-    public void Activity2DestinationReached()
-    {
-        componentManager.activity2HighlightEffect.enabled = false;
-        componentManager.destinationMarker.SetActive(false);
-        soundManager.PlayActivity2IntroVO();
-
-        Invoke(nameof(Activity2Start), 5f);
-
-
-    }
-
-    // =========================
-    // SCENE 5   Scene5_Conclusion
-    // =========================
-    [ContextMenu("start Activity 2 ")]
-    public void Activity2Start()
-    {
-        soundManager.PlayTurnOnSwitchVO();
-        uiManager.turnOnSwitchIndicatorUI.SetActive(true);
-
-
-    }
-
-    public void FaultySwitchON()
-    {
-        StartCoroutine(faultySwitchON());
-
-
-    }
-
-    private IEnumerator faultySwitchON()
-
-    {
-        yield return new WaitForSeconds(2f);
-        soundManager.PlayNoLightVO();
-        yield return WaitForAudio();
-        soundManager.PlaySwitchTODC();
-                yield return WaitForAudio();
-
-        uiManager.turnOnSwitchIndicatorUI.SetActive(false);
-        uiManager.switchToDCUI.SetActive(true);
-        componentManager.acDCSwitchACTVTY2.GetComponent<HighlightEffect>().enabled = true;
-    }
-
-    public void ActivityAC_DCSwitchON()
-    {
-        StartCoroutine(activityAC_DCSwitchON());
-    }
-
-    private IEnumerator activityAC_DCSwitchON()
-
-    {
-        yield return new WaitForSeconds(2f);
-        soundManager.PlayTurnTheDialTo20();
-        uiManager.switchToDCUI.SetActive(false);
-        uiManager.turnDialTo20UI.SetActive(true);
-
-
-
-
-    }
-
 
 
 
