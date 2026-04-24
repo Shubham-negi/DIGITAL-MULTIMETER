@@ -87,7 +87,6 @@ public class ComponentsManager : MonoBehaviour
 
         acDCSwitch.localPosition = localPos;
 
-        print("acdc switch local pos is - " + acDCSwitch.localPosition);
     }
 
   
@@ -259,6 +258,9 @@ public class ComponentsManager : MonoBehaviour
 
         UIManager.Instance.randBProbeHintButtonUI.SetActive(true);
         DisableInteraction(acDCSwitch.gameObject);
+
+                UIManager.Instance.acDCSwitchIndicatorUI.SetActive(false);
+
         StartCoroutine(StartBlackProbeStep());
     }
 

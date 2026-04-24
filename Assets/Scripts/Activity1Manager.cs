@@ -152,7 +152,7 @@ public class ActivityManager : MonoBehaviour
 
         yield return new WaitUntil(() => InteractionManager.Instance.isDCMode);
 
-              //  componentManager.DisableInteraction(componentManager.acDCSwitch.gameObject);
+          componentManager.DisableInteraction(componentManager.acDCSwitch.gameObject);
 
         UIManager.Instance.TurnTheDialToDCUI(false);
         yield return new WaitForSeconds(2f);
