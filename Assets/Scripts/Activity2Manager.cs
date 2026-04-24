@@ -12,7 +12,7 @@ public class Activity2Manager : MonoBehaviour
     [Header("Activity 2 ")]
 
     public Transform acDCSwitchACTVTY2;
-    public Transform lightBulb;
+    public GameObject lightBulb;
     public ComponentsManager componentManager;
 
     public GameObject selectorDial;
@@ -37,7 +37,7 @@ public class Activity2Manager : MonoBehaviour
 
 
 
-    public bool isfaultySwitch;
+    public bool isfaultySwitch = true;
     public bool isDcOn20V;
     public bool isDCMode = false;
 
@@ -64,16 +64,21 @@ public class Activity2Manager : MonoBehaviour
         {
             SoundManager.Instance.PlaySlideSwitch();
 
-            if (faultySwitch == true && activity2SwitchCalled == false)
+            if (isfaultySwitch == true && activity2SwitchCalled == false)
             {
                 activity2SwitchCalled = true;
                 FaultySwitchON();
             }
-            else if (faultySwitch == false && activity2SwitchCalled == true)
+            if (isfaultySwitch == false&& activity2SwitchCalled == true)
             {
-                lightBulb.gameObject.SetActive(true);
+
+                print("Light Bub called to be true -------------------------------------------");
+                lightBulb.SetActive(true);
 
             }
+
+                            print("End of funct");
+
         }
 
     }
@@ -283,11 +288,20 @@ public class Activity2Manager : MonoBehaviour
 
         SoundManager.Instance.PlayRemoveFaultySwitch();
         UIManager.Instance.removeTheFaultySwitch.SetActive(true);
+        faultySwitch.transform.GetChild(1).GetComponent<BoxCollider>().enabled = false;
+        faultySwitch.transform.GetChild(1).GetComponent<XRKnob>().enabled = false;
+
+
 
         faultySwitch.GetComponent<BoxCollider>().enabled = true;
+        faultySwitch.GetComponent<Rigidbody>().useGravity = true;
+        faultySwitch.GetComponent<Rigidbody>().isKinematic = false;
         faultySwitch.GetComponent<XRGrabInteractable>().enabled = true;
 
-       // FixTheProblem();
+
+
+
+        // FixTheProblem();
     }
 
     public void FixTheProblem()
@@ -300,17 +314,59 @@ public class Activity2Manager : MonoBehaviour
 
     {
 
+
         UIManager.Instance.removeTheFaultySwitch.SetActive(false);
+
         faultySwitch.GetComponent<BoxCollider>().enabled = false;
         faultySwitch.GetComponent<XRGrabInteractable>().enabled = false;
+
         SoundManager.Instance.PlayReplaceSwitchWithNew();
         UIManager.Instance.replacewithnewSwitch.SetActive(true);
         yield return WaitForAudio();
+
+
+        newSwitch.transform.GetChild(1).GetComponent<BoxCollider>().enabled = false;
+        newSwitch.transform.GetChild(1).GetComponent<XRKnob>().enabled = false;
+
+
         newSwitch.GetComponent<BoxCollider>().enabled = true;
+        newSwitch.GetComponent<Rigidbody>().useGravity = true;
+        newSwitch.GetComponent<Rigidbody>().isKinematic = false;
         newSwitch.GetComponent<XRGrabInteractable>().enabled = true;
+
         switchSocket.SetActive(true);
+
+
         SoundManager.Instance.PlayFaultyMustbeReplaced();
     }
+
+
+    public void FaultySwitchReplaced()
+    {
+        isfaultySwitch = false;
+
+
+        
+        switchSocket.SetActive(false);
+
+
+         newSwitch.GetComponent<BoxCollider>().enabled = false;
+        newSwitch.GetComponent<Rigidbody>().useGravity = false;
+        newSwitch.GetComponent<Rigidbody>().isKinematic = true;
+        newSwitch.GetComponent<XRGrabInteractable>().enabled = false;
+
+        newSwitch.transform.GetChild(1).GetComponent<BoxCollider>().enabled = true;
+        newSwitch.transform.GetChild(1).GetComponent<XRKnob>().enabled = true;
+
+
+
+
+
+
+    }
+
+
+
 
 
 
