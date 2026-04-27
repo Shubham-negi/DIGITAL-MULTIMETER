@@ -52,7 +52,7 @@ public class ActivityManager : MonoBehaviour
     private IEnumerator Scene1_ComponentLearning()
     {
         uiManager.BeginUI(false);
-        uiManager.ClickEachComponentTextUI(true);
+        uiManager.ClickEachComponentTextUI(false);
         uiManager.ShowComponentsUI(true);
         componentManager.Scene1_ComponentLearning();
 
@@ -105,7 +105,8 @@ public class ActivityManager : MonoBehaviour
         yield return WaitForAudio();
 
         yield return new WaitUntil(() => InteractionManager.Instance.isContinuityMode);
-                componentManager.EnableselectorDial(false);
+        componentManager.EnableselectorDial(false);
+        soundManager.PlaySlideSwitch();
 
         componentManager.continuitySymbol.SetActive(false);
 
@@ -150,7 +151,7 @@ public class ActivityManager : MonoBehaviour
         componentManager.EnableInteraction(componentManager.acDCSwitch.gameObject);
         componentManager.acDCSwitch.gameObject.GetComponent<XRSimpleInteractable>().enabled = true;
         soundManager.PlayTurnTheDialToDCVO();
-               
+
 
         yield return WaitForAudio();
         UIManager.Instance.acDCSwitchIndicatorUI.SetActive(true);
@@ -174,7 +175,9 @@ public class ActivityManager : MonoBehaviour
         yield return new WaitUntil(() => InteractionManager.Instance.isDCMode && InteractionManager.Instance.isDcOn20V);
         UIManager.Instance.RotateDialTo20UI(false);
         componentManager.symbol_20.SetActive(false);
-                componentManager.EnableselectorDial(false);
+        componentManager.EnableselectorDial(false);
+        soundManager.PlaySlideSwitch();
+
 
 
         yield return new WaitForSeconds(1f);
@@ -254,7 +257,7 @@ public class ActivityManager : MonoBehaviour
         componentManager.battery.SetActive(false);
         soundManager.PlayScene4IntroVO();
         yield return WaitForAudio();
-        
+
 
 
         uiManager.SafetyTipsUI(true);
@@ -268,7 +271,7 @@ public class ActivityManager : MonoBehaviour
 
         soundManager.PlaySwitchTOAC();
 
-                 yield return WaitForAudio();
+        yield return WaitForAudio();
 
 
         componentManager.EnableInteraction(componentManager.acDCSwitch.gameObject);
@@ -292,6 +295,7 @@ public class ActivityManager : MonoBehaviour
         yield return new WaitUntil(() => !InteractionManager.Instance.isDCMode && InteractionManager.Instance.isACOn200V);
         UIManager.Instance.RotateDialTo200UI(false);
         componentManager.symbol_200.SetActive(false);
+        soundManager.PlaySlideSwitch();
 
         componentManager.EnableselectorDial(false);
 
@@ -354,8 +358,7 @@ public class ActivityManager : MonoBehaviour
 
         soundManager.PlayConclusionVO();
         yield return WaitForAudio();
-        soundManager.PlayConclusionVO2();
-        yield return WaitForAudio();
+      
         soundManager.PlayActivity2NavigationVO();
         yield return WaitForAudio();
 

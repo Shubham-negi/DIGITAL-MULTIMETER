@@ -55,7 +55,6 @@ public class InteractionManager : MonoBehaviour
         {
             isDcOn20V = true;
 
-            // ✅ Lock ONLY here
         }
         // AC 200V
         else if (value >= 0.56f && value <= 0.6f)

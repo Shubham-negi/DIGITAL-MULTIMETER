@@ -46,7 +46,7 @@ public class Activity2Manager : MonoBehaviour
         componentManager.activity2HighlightEffect.enabled = false;
         componentManager.destinationMarker.SetActive(false);
         SoundManager.Instance.PlayActivity2IntroVO();
-        Invoke(nameof(Activity2Start), 5f);
+        Invoke(nameof(Activity2Start), 8f);
     }
 
 
@@ -149,7 +149,7 @@ public class Activity2Manager : MonoBehaviour
             ConnectBlackProb();
 
         }
-      
+
     }
 
     public void ConnectBlackProb()
@@ -221,6 +221,11 @@ public class Activity2Manager : MonoBehaviour
         yield return WaitForAudio();
         UIManager.Instance.moveToSwitchInput.SetActive(false);
         UIManager.Instance.moveToSwitchOutPut.SetActive(true);
+
+        SoundManager.Instance.PlayMoveToSwitchOutput();
+        yield return WaitForAudio();
+
+
     }
     public void TheCriticalCheck()
     {

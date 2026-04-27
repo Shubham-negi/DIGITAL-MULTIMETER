@@ -84,7 +84,6 @@ public class SoundManager : MonoBehaviour
 
     public AudioClip scene5IntroVO;
     public AudioClip conclusionVO;
-    public AudioClip conclusionVO2;
     public AudioClip activity2NavigationVO;
 
 
@@ -276,7 +275,6 @@ public class SoundManager : MonoBehaviour
     public void PlayActivity2IntroVO() => Play(activity2IntroVO);
 
     public void PlayActivity2NavigationVO() => Play(activity2NavigationVO);
-    public void PlayConclusionVO2() => Play(conclusionVO2);
 
     public void PlayConnectBlackProbTobattery()=>Play(connectBlackProbToBattery);
         public void PlayBlackProbConnected()=>Play(blackProbConnected);
