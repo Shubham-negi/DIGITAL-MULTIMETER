@@ -1,4 +1,5 @@
 using TMPro;
+using Unity.VRTemplate;
 using UnityEngine;
 
 public class InteractionManager : MonoBehaviour
@@ -6,6 +7,8 @@ public class InteractionManager : MonoBehaviour
     public static InteractionManager Instance;
 
     public ActivityManager activityManager;
+
+    public ComponentsManager componentsManager;
 
     public string redTouch;
     public string blackTouch;
@@ -38,29 +41,29 @@ public class InteractionManager : MonoBehaviour
     // =========================
     public void UpdateDialValue(float value)
     {
-
-        // Reset all states first (important)
         isContinuityMode = false;
         isACOn200V = false;
         isDcOn20V = false;
 
-        // 🔹 Continuity Mode
+        // Continuity
         if (value >= 0.73f && value <= 0.78f)
         {
             isContinuityMode = true;
         }
-        // 🔹 DC 20V
+
         else if (value >= 0.61f && value <= 0.64f)
         {
             isDcOn20V = true;
+
+            // ✅ Lock ONLY here
         }
-        // 🔹 AC 200V
+        // AC 200V
         else if (value >= 0.56f && value <= 0.6f)
         {
             isACOn200V = true;
         }
+        // DC 20V (final step)
 
-        // Debug.Log($"Dial Value: {value} | Continuity: {isContinuityMode} | DC20V: {isDcOn20V} | AC200V: {isACOn200V}");
     }
 
     // =========================
@@ -161,13 +164,4 @@ public class InteractionManager : MonoBehaviour
         Debug.Log("Voltage: " + value);
     }
 
-
-    
-
-    
-
-
-
-
-     
 }

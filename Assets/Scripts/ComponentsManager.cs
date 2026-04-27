@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using HighlightPlus;
 using TMPro;
+using Unity.VRTemplate;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UIElements;
@@ -40,6 +41,10 @@ public class ComponentsManager : MonoBehaviour
     public GameObject VΩPort;
     public GameObject selectorDial;
     public GameObject continuitySymbol;
+    public GameObject symbol_20;
+
+    public GameObject symbol_200;
+
     public Transform acDCSwitch;
 
 
@@ -89,7 +94,7 @@ public class ComponentsManager : MonoBehaviour
 
     }
 
-  
+
     // =========================
     // 🔧 Helpers
     // =========================
@@ -110,6 +115,14 @@ public class ComponentsManager : MonoBehaviour
     {
         obj.GetComponent<XRGrabInteractable>().enabled = isGrabbable;
     }
+    public void EnableselectorDial(bool active)
+    {
+        selectorDial.GetComponentInParent<XRKnob>().enabled = active;
+        selectorDial.GetComponentInParent<BoxCollider>().enabled = active;
+    }
+
+
+
 
 
     IEnumerator WaitForAudio()
@@ -156,6 +169,8 @@ public class ComponentsManager : MonoBehaviour
 
     public void OnComPortClick()
     {
+                DisableInteraction(comPort);
+
         StartCoroutine(OnComPortClickRoutine());
     }
 
@@ -163,7 +178,6 @@ public class ComponentsManager : MonoBehaviour
     {
         UIManager.Instance.comPortIndicatorUI.SetActive(false);
 
-        DisableInteraction(comPort);
         SoundManager.Instance.PlayBlackProbe();
 
         yield return WaitForAudio();
@@ -175,6 +189,8 @@ public class ComponentsManager : MonoBehaviour
 
     public void OnVΩPortClick()
     {
+                DisableInteraction(VΩPort);
+
         StartCoroutine(OnVΩPortClickRoutine());
     }
 
@@ -182,10 +198,11 @@ public class ComponentsManager : MonoBehaviour
     {
         UIManager.Instance.VΩPortIndicatorUI.SetActive(false);
 
-        DisableInteraction(VΩPort);
         SoundManager.Instance.PlayRedProbe();
 
         yield return WaitForAudio();
+        continuitySymbol.SetActive(true);
+
 
         EnableInteraction(continuitySymbol);
         UIManager.Instance.continuitySymbolIndicatorUI.SetActive(true);
@@ -193,6 +210,8 @@ public class ComponentsManager : MonoBehaviour
 
     public void OnContinuitySymbolClick()
     {
+                DisableInteraction(continuitySymbol);
+
         StartCoroutine(OnContinuitySymbolClickRoutine());
     }
 
@@ -200,7 +219,6 @@ public class ComponentsManager : MonoBehaviour
     {
         UIManager.Instance.continuitySymbolIndicatorUI.SetActive(false);
 
-        DisableInteraction(continuitySymbol);
         SoundManager.Instance.PlayContinuitySymbol();
 
         yield return WaitForAudio();
@@ -213,6 +231,8 @@ public class ComponentsManager : MonoBehaviour
 
     public void OnSelectorDialClick()
     {
+                DisableInteraction(selectorDial);
+
         StartCoroutine(OnSelectorDialClickRoutine());
     }
 
@@ -222,7 +242,6 @@ public class ComponentsManager : MonoBehaviour
 
         UIManager.Instance.selectorDialIndicatorUI.SetActive(false);
 
-        DisableInteraction(selectorDial);
         SoundManager.Instance.PlaySelectorDial();
         yield return WaitForAudio();
 
@@ -235,6 +254,8 @@ public class ComponentsManager : MonoBehaviour
 
     public void OnAcDcVolategeSwitchClick()
     {
+                DisableInteraction(acDCSwitch.gameObject);
+
         StartCoroutine(OnAcDcVoltageSwitchClickRoutine());
     }
 
@@ -257,9 +278,8 @@ public class ComponentsManager : MonoBehaviour
         UIManager.Instance.VΩPortIndicatorUI.SetActive(true);
 
         UIManager.Instance.randBProbeHintButtonUI.SetActive(true);
-        DisableInteraction(acDCSwitch.gameObject);
 
-                UIManager.Instance.acDCSwitchIndicatorUI.SetActive(false);
+        UIManager.Instance.acDCSwitchIndicatorUI.SetActive(false);
 
         StartCoroutine(StartBlackProbeStep());
     }

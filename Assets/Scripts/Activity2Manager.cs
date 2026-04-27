@@ -63,7 +63,6 @@ public class Activity2Manager : MonoBehaviour
         if (val >= .9 && val <= 1)
         {
             SoundManager.Instance.PlaySlideSwitch();
-
             if (isfaultySwitch == true && activity2SwitchCalled == false)
             {
                 activity2SwitchCalled = true;
@@ -71,31 +70,18 @@ public class Activity2Manager : MonoBehaviour
             }
             if (isfaultySwitch == false && activity2SwitchCalled == true)
             {
-
                 lightBulb.SetActive(true);
-                                activity2SwitchCalled = false;
-
+                activity2SwitchCalled = false;
                 SoundManager.Instance.PlayCircuitComplete();
-                        UIManager.Instance.turnOnTheSwitch.SetActive(true);
-
-                        Invoke(nameof(ModuleCompleted),5f);
-
-
-
-
-
+                UIManager.Instance.turnOnTheSwitch.SetActive(true);
+                Invoke(nameof(ModuleCompleted), 5f);
             }
-
-
         }
-
     }
 
     public void FaultySwitchON()
     {
         StartCoroutine(faultySwitchON());
-
-
     }
 
     private IEnumerator faultySwitchON()
@@ -106,7 +92,6 @@ public class Activity2Manager : MonoBehaviour
         yield return WaitForAudio();
         SoundManager.Instance.PlaySwitchTODC();
         yield return WaitForAudio();
-
         UIManager.Instance.turnOnSwitchIndicatorUI.SetActive(false);
         UIManager.Instance.switchToDCUI.SetActive(true);
         acDCSwitchACTVTY2.GetComponent<HighlightEffect>().enabled = true;
@@ -116,21 +101,16 @@ public class Activity2Manager : MonoBehaviour
     public void ToggleACDCSwitchACTVTY2()
     {
         isDCMode = !isDCMode;
-
         Vector3 localPos = acDCSwitchACTVTY2.localPosition;
         localPos.z = !isDCMode ? -0.01804f : -0.02151f;
-
         acDCSwitchACTVTY2.localPosition = localPos;
         Activity2AC_DCSwitch();
-
     }
     public void Activity2AC_DCSwitch()
     {
         if (isDCMode == true)
         {
             ActivityAC_DCSwitchON();
-
-
         }
     }
 
@@ -147,7 +127,6 @@ public class Activity2Manager : MonoBehaviour
         SoundManager.Instance.PlayTurnTheDialTo20();
         UIManager.Instance.switchToDCUI.SetActive(false);
         UIManager.Instance.turnDialTo20UI.SetActive(true);
-
         selectorDial.GetComponent<XRKnob>().enabled = true;
         selectorDial.GetComponent<BoxCollider>().enabled = true;
 
@@ -170,13 +149,7 @@ public class Activity2Manager : MonoBehaviour
             ConnectBlackProb();
 
         }
-        // // 🔹 AC 200V
-        // else if (value >= 0.56f && value <= 0.6f)
-        // {
-        //     isACOn200V = true;
-        // }
-
-        // Debug.Log($"Dial Value: {value} | Continuity: {isContinuityMode} | DC20V: {isDcOn20V} | AC200V: {isACOn200V}");
+      
     }
 
     public void ConnectBlackProb()
@@ -209,17 +182,9 @@ public class Activity2Manager : MonoBehaviour
         SoundManager.Instance.PlayBlackProbConnected();
         UIManager.Instance.connectBProbTON.SetActive(false);
         yield return WaitForAudio();
-
         SoundManager.Instance.PlayTouchRedProb();
         UIManager.Instance.connectRProbTOPos.SetActive(true);
-
         redProb.GetComponent<XRGrabInteractable>().enabled = true;
-
-
-
-
-
-
     }
 
 
@@ -232,41 +197,28 @@ public class Activity2Manager : MonoBehaviour
     private IEnumerator checkPowerSource()
 
     {
-
         screenText.text = "8.9V";
 
         yield return new WaitForSeconds(1f);
         SoundManager.Instance.PlayBatteryIsWorking();
         UIManager.Instance.connectRProbTOPos.SetActive(false);
-
         yield return WaitForAudio();
         SoundManager.Instance.PlayMoveToSwitchInput();
         UIManager.Instance.moveToSwitchInput.SetActive(true);
-
         yield return WaitForAudio();
-
         SoundManager.Instance.PlayThisIsswitchInput();
-
-
-
-
-
     }
     public void FollowTheFlow()
     {
         StartCoroutine(followTheFlow());
     }
-
-
     private IEnumerator followTheFlow()
 
     {
-
         screenText.text = "8.9V";
         yield return new WaitForSeconds(1f);
         SoundManager.Instance.PlayPowerhasreachedToSwitch();
         yield return WaitForAudio();
-
         UIManager.Instance.moveToSwitchInput.SetActive(false);
         UIManager.Instance.moveToSwitchOutPut.SetActive(true);
     }
@@ -327,7 +279,7 @@ public class Activity2Manager : MonoBehaviour
 
         faultySwitch.GetComponent<BoxCollider>().enabled = false;
         faultySwitch.GetComponent<XRGrabInteractable>().enabled = false;
-newSwitch.SetActive(true);
+        newSwitch.SetActive(true);
         SoundManager.Instance.PlayReplaceSwitchWithNew();
         UIManager.Instance.replacewithnewSwitch.SetActive(true);
         yield return WaitForAudio();

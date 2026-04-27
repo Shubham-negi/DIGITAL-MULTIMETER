@@ -95,15 +95,20 @@ public class ActivityManager : MonoBehaviour
 
         uiManager.ShowComponentsUI(false);
 
-        componentManager.selectorDial.GetComponentInParent<XRKnob>().enabled = true;
-        componentManager.selectorDial.GetComponentInParent<BoxCollider>().enabled = true;
+        componentManager.EnableselectorDial(true);
+
 
         soundManager.PlayTurnToContinuityVO();
         UIManager.Instance.TurnToContinuityUI(true);
-        //  componentManager.EnableInteraction(componentManager.selectorDial);
+
+        componentManager.continuitySymbol.SetActive(true);
         yield return WaitForAudio();
 
         yield return new WaitUntil(() => InteractionManager.Instance.isContinuityMode);
+                componentManager.EnableselectorDial(false);
+
+        componentManager.continuitySymbol.SetActive(false);
+
         yield return new WaitForSeconds(2f);
 
         componentManager.EnableXRGrabbable(componentManager.blackProbeHolder, true);
@@ -145,24 +150,32 @@ public class ActivityManager : MonoBehaviour
         componentManager.EnableInteraction(componentManager.acDCSwitch.gameObject);
         componentManager.acDCSwitch.gameObject.GetComponent<XRSimpleInteractable>().enabled = true;
         soundManager.PlayTurnTheDialToDCVO();
-        soundManager.PlaySwitchTOAC();
+               
 
         yield return WaitForAudio();
         UIManager.Instance.acDCSwitchIndicatorUI.SetActive(true);
 
         yield return new WaitUntil(() => InteractionManager.Instance.isDCMode);
 
-          componentManager.DisableInteraction(componentManager.acDCSwitch.gameObject);
+        componentManager.DisableInteraction(componentManager.acDCSwitch.gameObject);
 
         UIManager.Instance.TurnTheDialToDCUI(false);
         yield return new WaitForSeconds(2f);
         UIManager.Instance.acDCSwitchIndicatorUI.SetActive(false);
         soundManager.PlayTurnTheDialTo20();
+        componentManager.symbol_20.SetActive(true);
+
         yield return WaitForAudio();
         UIManager.Instance.RotateDialTo20UI(true);
 
+        componentManager.EnableselectorDial(true);
+
+
         yield return new WaitUntil(() => InteractionManager.Instance.isDCMode && InteractionManager.Instance.isDcOn20V);
         UIManager.Instance.RotateDialTo20UI(false);
+        componentManager.symbol_20.SetActive(false);
+                componentManager.EnableselectorDial(false);
+
 
         yield return new WaitForSeconds(1f);
 
@@ -241,8 +254,7 @@ public class ActivityManager : MonoBehaviour
         componentManager.battery.SetActive(false);
         soundManager.PlayScene4IntroVO();
         yield return WaitForAudio();
-        soundManager.PlayMoveNearToWallSocketVO();
-        yield return WaitForAudio();
+        
 
 
         uiManager.SafetyTipsUI(true);
@@ -253,8 +265,11 @@ public class ActivityManager : MonoBehaviour
 
 
         uiManager.TurnDialToACUI(true);
-        soundManager.PlaySwitchTODC();
-        yield return WaitForAudio();
+
+        soundManager.PlaySwitchTOAC();
+
+                 yield return WaitForAudio();
+
 
         componentManager.EnableInteraction(componentManager.acDCSwitch.gameObject);
         UIManager.Instance.acDCSwitchIndicatorUI.SetActive(true);
@@ -267,12 +282,18 @@ public class ActivityManager : MonoBehaviour
 
         UIManager.Instance.RotateDialTo200UI(true);
         soundManager.PlayTurnTheDialTo200();
+        componentManager.symbol_200.SetActive(true);
+
         yield return WaitForAudio();
         UIManager.Instance.acDCSwitchIndicatorUI.SetActive(false);
 
+        componentManager.EnableselectorDial(true);
 
         yield return new WaitUntil(() => !InteractionManager.Instance.isDCMode && InteractionManager.Instance.isACOn200V);
         UIManager.Instance.RotateDialTo200UI(false);
+        componentManager.symbol_200.SetActive(false);
+
+        componentManager.EnableselectorDial(false);
 
         yield return new WaitForSeconds(2f);
 

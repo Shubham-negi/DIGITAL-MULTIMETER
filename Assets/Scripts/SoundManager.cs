@@ -88,7 +88,7 @@ public class SoundManager : MonoBehaviour
     public AudioClip activity2NavigationVO;
 
 
-    [Header("Activity 1 Voice Overs")]
+    [Header("Activity 2 Voice Overs")]
 
     // ----------------------------------------Activity 2  voice overs------------------
     public AudioClip activity2IntroVO;

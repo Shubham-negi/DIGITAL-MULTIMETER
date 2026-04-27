@@ -4,30 +4,30 @@ using UnityEngine;
 
 public class RedProbTouchIN : MonoBehaviour
 {
-    // Start is called before the first frame update
     public Activity2Manager activity2Manager;
+
+    private bool batteryTouched = false;
+    private bool switchPositiveTouched = false;
+    private bool switchNegativeTouched = false;
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.name == "BatteryPositive")
+        if (other.name == "BatteryPositive" && !batteryTouched)
         {
-
+            batteryTouched = true;
             activity2Manager.CheckPowerSource();
         }
 
-        if (other.name == "SwitchPositive")
+        else if (other.name == "SwitchPositive" && !switchPositiveTouched)
         {
-
+            switchPositiveTouched = true;
             activity2Manager.FollowTheFlow();
         }
 
-        if (other.name == "SwitchNegative")
+        else if (other.name == "SwitchNegative" && !switchNegativeTouched)
         {
-
+            switchNegativeTouched = true;
             activity2Manager.TheCriticalCheck();
         }
-
-
-        
     }
 }
