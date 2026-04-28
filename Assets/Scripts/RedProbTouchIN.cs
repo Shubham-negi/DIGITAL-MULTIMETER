@@ -33,12 +33,9 @@ public class RedProbTouchIN : MonoBehaviour
         else if (other.name == "New Working Switch")
         {
             activity2Manager.FaultySwitchReplaced();
-
             other.transform.position = transform.position;
-                        other.transform.rotation = transform.rotation;
-
+            other.transform.rotation = transform.rotation;
             Destroy(gameObject);
-
         }
     }
 }
