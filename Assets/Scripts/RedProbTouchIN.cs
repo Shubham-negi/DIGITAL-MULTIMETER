@@ -10,6 +10,7 @@ public class RedProbTouchIN : MonoBehaviour
     private bool switchPositiveTouched = false;
     private bool switchNegativeTouched = false;
 
+
     void OnTriggerEnter(Collider other)
     {
         if (other.name == "BatteryPositive" && !batteryTouched)
@@ -28,6 +29,16 @@ public class RedProbTouchIN : MonoBehaviour
         {
             switchNegativeTouched = true;
             activity2Manager.TheCriticalCheck();
+        }
+        else if (other.name == "New Working Switch")
+        {
+            activity2Manager.FaultySwitchReplaced();
+
+            other.transform.position = transform.position;
+                        other.transform.rotation = transform.rotation;
+
+            Destroy(gameObject);
+
         }
     }
 }

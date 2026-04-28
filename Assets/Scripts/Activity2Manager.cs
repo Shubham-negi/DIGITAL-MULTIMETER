@@ -308,33 +308,54 @@ public class Activity2Manager : MonoBehaviour
     }
 
 
-    public void FaultySwitchReplaced()
+   public void FaultySwitchReplaced()
+{
+    isfaultySwitch = false;
+    StartCoroutine(HandleSwitchReplace());
+}
+
+IEnumerator HandleSwitchReplace()
+{
+    var rb = newSwitch.GetComponent<Rigidbody>();
+    var grab = newSwitch.GetComponent<XRGrabInteractable>();
+    var col = newSwitch.GetComponent<BoxCollider>();
+
+    // Force release if held
+    if (grab != null && grab.isSelected)
     {
-        isfaultySwitch = false;
-
-
-
-
-
-        newSwitch.GetComponent<BoxCollider>().enabled = false;
-        newSwitch.GetComponent<Rigidbody>().useGravity = false;
-        newSwitch.GetComponent<Rigidbody>().isKinematic = true;
-        newSwitch.GetComponent<XRGrabInteractable>().enabled = false;
-
-        newSwitch.transform.GetChild(1).GetComponent<BoxCollider>().enabled = true;
-        newSwitch.transform.GetChild(1).GetComponent<XRKnob>().enabled = true;
-
-        UIManager.Instance.replacewithnewSwitch.SetActive(false);
-
-        UIManager.Instance.turnOnTheSwitch.SetActive(true);
-
-        SoundManager.Instance.PlayTurnOnSwitchForLightBulb();
-        Destroy(switchSocket);
-       // switchSocket.SetActive(false);
-
-
-
+        grab.interactionManager.SelectExit(grab.firstInteractorSelecting, grab);
     }
+
+    yield return null; // 🔥 wait one frame (VERY IMPORTANT)
+
+    // Disable interaction first
+    if (grab) grab.enabled = false;
+
+    // Now force physics state
+    if (rb)
+    {
+        rb.velocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
+
+        rb.isKinematic = true;
+        rb.useGravity = false;
+    }
+
+    if (col) col.enabled = false;
+
+    // Enable child interaction
+    var child = newSwitch.transform.GetChild(1);
+
+    child.GetComponent<BoxCollider>().enabled = true;
+    child.GetComponent<XRKnob>().enabled = true;
+
+    // UI + sound
+    UIManager.Instance.replacewithnewSwitch.SetActive(false);
+    UIManager.Instance.turnOnTheSwitch.SetActive(true);
+    SoundManager.Instance.PlayTurnOnSwitchForLightBulb();
+
+    Destroy(switchSocket);
+}
 
 
 

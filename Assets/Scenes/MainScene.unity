@@ -42614,6 +42614,7 @@ GameObject:
   - component: {fileID: 1883778711}
   - component: {fileID: 1883778713}
   - component: {fileID: 1883778712}
+  - component: {fileID: 1883778714}
   m_Layer: 0
   m_Name: SwitchPlaceMent
   m_TagString: Untagged
@@ -42644,7 +42645,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1883778710}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 60523e0647cc6ab43acc73cb266a32a7, type: 3}
   m_Name: 
@@ -42716,6 +42717,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.1, y: 0.04, z: 0.04}
   m_Center: {x: 0, y: 2.0341077e-13, z: 0.010412179}
+--- !u!114 &1883778714
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1883778710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a851670195adf0f46b99677021abaf42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  activity2Manager: {fileID: 1823394482}
 --- !u!1 &1884884638
 GameObject:
   m_ObjectHideFlags: 0
@@ -45399,7 +45413,7 @@ GameObject:
   - component: {fileID: 1988998425}
   - component: {fileID: 1988998424}
   m_Layer: 0
-  m_Name: New switch1
+  m_Name: New Working Switch
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -63720,7 +63734,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 0.07105045, y: 0.04, z: 0.05131561}
   m_Center: {x: -0.014474772, y: 0.0000000030228535, z: 0.011772895}
